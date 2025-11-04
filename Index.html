@@ -1,0 +1,550 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kite Amazônia — Agência de Kite Trips no Pará</title>
+  <meta name="description" content="Agência de turismo especializada em kite surf no Pará: kite trips, aulas, passeios e pacotes personalizados na Amazônia."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Tailwind on-the-fly config (light palette inspired by água + céu)
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'ui-sans-serif', 'system-ui'] },
+          colors: {
+            brand: {
+              50: '#f0fbff', 100: '#dff5ff', 200: '#bfe8fb', 300: '#92d7f5', 400: '#5fc2ec',
+              500: '#31A7E1', 600: '#1d8ac4', 700: '#176f9b', 800: '#175a7b', 900: '#164b64'
+            },
+            mint: { 50:'#effcf6', 100:'#d7f7ea', 200:'#b0eed7', 300:'#80e2c1', 400:'#4fd5aa', 500:'#2ec89a', 600:'#1aa27e', 700:'#177f65', 800:'#166653', 900:'#125242' }
+          },
+          boxShadow: {
+            soft: '0 8px 24px rgba(13, 38, 76, 0.08)'
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: 0, transform: 'translateY(16px)' },
+              '100%': { opacity: 1, transform: 'translateY(0)' }
+            },
+            slideIn: {
+              '0%': { transform: 'translateX(100%)' },
+              '100%': { transform: 'translateX(0)' }
+            },
+            slideOut: {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(100%)' }
+            }
+          },
+          animation: {
+            fadeUp: 'fadeUp 700ms ease-out both',
+            slideIn: 'slideIn 300ms ease-out both',
+            slideOut: 'slideOut 250ms ease-in both'
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Base scroll reveal: .reveal becomes visible when .is-visible is added via IntersectionObserver */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    /* Hide scrollbar for the drawer content on mobile for a cleaner feel */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-white text-slate-800 antialiased">
+  <!-- Offcanvas / Drawer -->
+  <aside id="drawer" aria-hidden="true" class="fixed inset-y-0 right-0 w-80 max-w-[85vw] translate-x-full bg-white/95 backdrop-blur-xl border-l border-slate-200 z-50 flex flex-col shadow-2xl">
+    <div class="flex items-center justify-between p-4 border-b border-slate-200">
+      <div class="flex items-center gap-2">
+        <div class="h-8 w-8 rounded-lg bg-mint-200 grid place-items-center text-brand-800 font-bold">KA</div>
+        <span class="font-semibold">Kite Amazônia</span>
+      </div>
+      <button id="closeDrawer" class="p-2 rounded-lg hover:bg-slate-100" aria-label="Fechar menu">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav class="p-4 overflow-y-auto no-scrollbar grow">
+      <ul class="space-y-1 text-slate-700">
+        <li><a href="#inicio" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Início</a></li>
+        <li><a href="#sobre" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Sobre nós</a></li>
+        <li><a href="#experiencias" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Passeios & Trips</a></li>
+        <li><a href="#aulas" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Aulas de Kite</a></li>
+        <li><a href="#faq" class="block px-3 py-2 rounded-lg hover:bg-slate-100">FAQ</a></li>
+        <li><a href="#contato" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Entre em contato</a></li>
+        <li><a href="#termos" class="block px-3 py-2 rounded-lg hover:bg-slate-100">Termos & Política</a></li>
+      </ul>
+    </nav>
+    <div class="p-4 border-t border-slate-200 text-sm text-slate-500">
+      <p>Pronto para o vento? <a href="#contato" class="text-brand-700 hover:underline font-medium">Solicite um orçamento</a></p>
+    </div>
+  </aside>  <!-- Topbar / Navbar -->  <header class="sticky top-0 z-40 backdrop-blur bg-white/85 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="h-16 flex items-center justify-between">
+        <a href="#inicio" class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-xl bg-gradient-to-br from-brand-400 to-mint-400 grid place-items-center text-white font-extrabold shadow-soft">KA</div>
+          <div class="leading-tight">
+            <div class="font-extrabold tracking-tight">Kite Amazônia</div>
+            <div class="text-xs text-slate-500">Pará • Brasil</div>
+          </div>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a href="#sobre" class="hover:text-brand-700">Sobre nós</a>
+          <a href="#experiencias" class="hover:text-brand-700">Passeios</a>
+          <a href="#aulas" class="hover:text-brand-700">Aulas</a>
+          <a href="#faq" class="hover:text-brand-700">FAQ</a>
+          <a href="#contato" class="hover:text-brand-700">Contato</a>
+        </nav>
+        <div class="flex items-center gap-3">
+          <a href="#contato" class="hidden sm:inline-flex items-center px-3 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 shadow-soft text-sm font-medium">Reservar agora</a>
+          <button id="openDrawer" class="md:hidden p-2 rounded-xl hover:bg-slate-100" aria-controls="drawer" aria-expanded="false" aria-label="Abrir menu">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div><!-- Filter Bar -->
+<div class="border-t border-slate-200">
+  <div class="max-w-7xl mx-auto px-4 py-3">
+    <form id="filterForm" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
+      <label class="block">
+        <span class="text-xs text-slate-500">Destino</span>
+        <select name="destino" class="w-full mt-1 rounded-xl border-slate-200 focus:border-brand-500 focus:ring-brand-500">
+          <option value="">Todos</option>
+          <option>Salinópolis</option>
+          <option>Algodoal</option>
+          <option>Marajó (Soure/Salvaterra)</option>
+          <option>Atalaia</option>
+          <option>Bragança</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="text-xs text-slate-500">Nível</span>
+        <select name="nivel" class="w-full mt-1 rounded-xl border-slate-200 focus:border-brand-500 focus:ring-brand-500">
+          <option value="">Todos</option>
+          <option>Iniciante</option>
+          <option>Intermediário</option>
+          <option>Avançado</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="text-xs text-slate-500">Tipo</span>
+        <select name="tipo" class="w-full mt-1 rounded-xl border-slate-200 focus:border-brand-500 focus:ring-brand-500">
+          <option value="">Todos</option>
+          <option>Trip</option>
+          <option>Aula</option>
+          <option>Passeio</option>
+          <option>Pacote</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="text-xs text-slate-500">Estação do vento</span>
+        <select name="estacao" class="w-full mt-1 rounded-xl border-slate-200 focus:border-brand-500 focus:ring-brand-500">
+          <option value="">Qualquer</option>
+          <option>Jul–Dez (pico)</option>
+          <option>Jan–Jun (variável)</option>
+        </select>
+      </label>
+      <label class="block lg:col-span-2">
+        <span class="text-xs text-slate-500">Data</span>
+        <div class="flex gap-2 mt-1">
+          <input type="date" name="inicio" class="w-1/2 rounded-xl border-slate-200 focus:border-brand-500 focus:ring-brand-500" />
+          <input type="date" name="fim" class="w-1/2 rounded-xl border-slate-200 focus:border-brand-500 focus:ring-brand-500" />
+        </div>
+      </label>
+    </form>
+  </div>
+</div>
+
+  </header>  <!-- Hero -->  <section id="inicio" class="relative overflow-hidden">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 via-white to-mint-50"></div>
+    <div class="max-w-7xl mx-auto px-4 py-16 md:py-24">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div class="reveal">
+          <h1 class="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight text-slate-900">Kite surf na Amazônia, \n<span class="bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-mint-600">vento constante</span> e água morna</h1>
+          <p class="mt-4 text-slate-600 max-w-prose">Organizamos kite trips, aulas, passeios e pacotes sob medida pelo litoral do Pará — de Salinas a Marajó. Segurança, logística completa e guias locais.</p>
+          <div class="mt-6 flex flex-wrap gap-3">
+            <a href="#experiencias" class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 shadow-soft font-medium">Explorar experiências</a>
+            <a href="#contato" class="inline-flex items-center px-4 py-2 rounded-xl border border-slate-300 hover:border-slate-400">Montar meu pacote</a>
+          </div>
+          <dl class="mt-8 grid grid-cols-3 gap-4 text-center">
+            <div class="p-4 rounded-2xl bg-white/70 backdrop-blur border border-slate-200">
+              <dt class="text-xs text-slate-500">Ventos</dt>
+              <dd class="font-semibold">Jul–Dez</dd>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/70 backdrop-blur border border-slate-200">
+              <dt class="text-xs text-slate-500">Destinos</dt>
+              <dd class="font-semibold">5+ no Pará</dd>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/70 backdrop-blur border border-slate-200">
+              <dt class="text-xs text-slate-500">Níveis</dt>
+              <dd class="font-semibold">Iniciante a Pro</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="relative reveal">
+          <div class="aspect-[4/3] rounded-3xl bg-gradient-to-br from-brand-200 to-mint-200 shadow-soft"></div>
+          <div class="absolute -bottom-6 -left-6 w-40 h-40 rounded-3xl bg-white/80 backdrop-blur border border-slate-200 grid place-items-center shadow-soft">Mapa / Foto</div>
+        </div>
+      </div>
+    </div>
+  </section>  <!-- Experiências (cards filtráveis) -->  <section id="experiencias" class="py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex items-end justify-between gap-4 reveal">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Experiências em destaque</h2>
+          <p class="text-slate-600 mt-1">Refine pelos filtros acima para encontrar sua vela ideal.</p>
+        </div>
+        <div class="hidden sm:flex items-center gap-2 text-sm">
+          <span class="text-slate-500">Ordenar:</span>
+          <select id="sortSelect" class="rounded-xl border-slate-200 focus:border-brand-500 focus:ring-brand-500">
+            <option value="recomendado">Recomendado</option>
+            <option value="preco">Preço</option>
+            <option value="duracao">Duração</option>
+          </select>
+        </div>
+      </div><div id="cardsGrid" class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Card template examples -->
+    <article class="card reveal" data-destino="Salinópolis" data-nivel="Iniciante" data-tipo="Aula" data-estacao="Jul–Dez (pico)" data-preco="450" data-duracao="3">
+      <div class="group rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-soft">
+        <div class="aspect-[4/3] bg-gradient-to-br from-brand-100 to-mint-100"></div>
+        <div class="p-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold">Aula de Iniciação • Salinópolis</h3>
+            <span class="text-sm px-2 py-0.5 rounded-full bg-mint-100 text-mint-800">Iniciante</span>
+          </div>
+          <p class="mt-1 text-sm text-slate-600">Instrutor certificado (IKO), rádio, e equipamentos inclusos.</p>
+          <dl class="mt-3 flex items-center gap-4 text-xs text-slate-600">
+            <div><span class="font-medium">Duração:</span> 3h</div>
+            <div><span class="font-medium">Estação:</span> Jul–Dez</div>
+          </dl>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-lg font-bold">R$ 450</span>
+            <a href="#contato" class="px-3 py-2 rounded-xl bg-brand-600 text-white text-sm hover:bg-brand-700">Reservar</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card reveal" data-destino="Marajó (Soure/Salvaterra)" data-nivel="Intermediário" data-tipo="Trip" data-estacao="Jul–Dez (pico)" data-preco="3200" data-duracao="4">
+      <div class="group rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-soft">
+        <div class="aspect-[4/3] bg-gradient-to-br from-brand-100 to-mint-100"></div>
+        <div class="p-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold">Kite Trip • Ilha de Marajó</h3>
+            <span class="text-sm px-2 py-0.5 rounded-full bg-brand-100 text-brand-800">Intermediário</span>
+          </div>
+          <p class="mt-1 text-sm text-slate-600">Downwinds guiados, apoio de lancha e hospedagem boutique.</p>
+          <dl class="mt-3 flex items-center gap-4 text-xs text-slate-600">
+            <div><span class="font-medium">Duração:</span> 4 dias</div>
+            <div><span class="font-medium">Estação:</span> Jul–Dez</div>
+          </dl>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-lg font-bold">R$ 3.200</span>
+            <a href="#contato" class="px-3 py-2 rounded-xl bg-brand-600 text-white text-sm hover:bg-brand-700">Reservar</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card reveal" data-destino="Algodoal" data-nivel="Avançado" data-tipo="Passeio" data-estacao="Jan–Jun (variável)" data-preco="980" data-duracao="1">
+      <div class="group rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-soft">
+        <div class="aspect-[4/3] bg-gradient-to-br from-brand-100 to-mint-100"></div>
+        <div class="p-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold">Lagunas Secretas • Algodoal</h3>
+            <span class="text-sm px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">Avançado</span>
+          </div>
+          <p class="mt-1 text-sm text-slate-600">Downwind técnico por bancos de areia e canais internos.</p>
+          <dl class="mt-3 flex items-center gap-4 text-xs text-slate-600">
+            <div><span class="font-medium">Duração:</span> 1 dia</div>
+            <div><span class="font-medium">Estação:</span> Jan–Jun</div>
+          </dl>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-lg font-bold">R$ 980</span>
+            <a href="#contato" class="px-3 py-2 rounded-xl bg-brand-600 text-white text-sm hover:bg-brand-700">Reservar</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card reveal" data-destino="Atalaia" data-nivel="Intermediário" data-tipo="Pacote" data-estacao="Jul–Dez (pico)" data-preco="5200" data-duracao="6">
+      <div class="group rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-soft">
+        <div class="aspect-[4/3] bg-gradient-to-br from-brand-100 to-mint-100"></div>
+        <div class="p-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold">Pacote Completo • Atalaia</h3>
+            <span class="text-sm px-2 py-0.5 rounded-full bg-brand-100 text-brand-800">Intermediário</span>
+          </div>
+          <p class="mt-1 text-sm text-slate-600">Hospedagem, transfers, coaching diário e fotos incluídas.</p>
+          <dl class="mt-3 flex items-center gap-4 text-xs text-slate-600">
+            <div><span class="font-medium">Duração:</span> 6 dias</div>
+            <div><span class="font-medium">Estação:</span> Jul–Dez</div>
+          </dl>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-lg font-bold">R$ 5.200</span>
+            <a href="#contato" class="px-3 py-2 rounded-xl bg-brand-600 text-white text-sm hover:bg-brand-700">Reservar</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="card reveal" data-destino="Bragança" data-nivel="Iniciante" data-tipo="Passeio" data-estacao="Jul–Dez (pico)" data-preco="350" data-duracao="1">
+      <div class="group rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-soft">
+        <div class="aspect-[4/3] bg-gradient-to-br from-brand-100 to-mint-100"></div>
+        <div class="p-4">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold">Passeio de Manguezal • Bragança</h3>
+            <span class="text-sm px-2 py-0.5 rounded-full bg-mint-100 text-mint-800">Iniciante</span>
+          </div>
+          <p class="mt-1 text-sm text-slate-600">Exploração leve com prancha grande e vento amigável.</p>
+          <dl class="mt-3 flex items-center gap-4 text-xs text-slate-600">
+            <div><span class="font-medium">Duração:</span> 1 dia</div>
+            <div><span class="font-medium">Estação:</span> Jul–Dez</div>
+          </dl>
+          <div class="mt-4 flex items-center justify-between">
+            <span class="text-lg font-bold">R$ 350</span>
+            <a href="#contato" class="px-3 py-2 rounded-xl bg-brand-600 text-white text-sm hover:bg-brand-700">Reservar</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+<article class="card reveal" data-destino="Salinópolis" data-nivel="Avançado" data-tipo="Trip" data-estacao="Jan–Jun (variável)" data-preco="4100" data-duracao="5">
+          <div class="group rounded-3xl border border-slate-200 bg-white overflow-hidden shadow-soft">
+            <div class="aspect-[4/3] bg-gradient-to-br from-brand-100 to-mint-100"></div>
+            <div class="p-4">
+              <div class="flex items-center justify-between">
+                <h3 class="font-semibold">Downwind Costeiro • Salinas</h3>
+                <span class="text-sm px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">Avançado</span>
+              </div>
+              <p class="mt-1 text-sm text-slate-600">Etapas diárias com apoio 4x4 e resgate na praia.</p>
+              <dl class="mt-3 flex items-center gap-4 text-xs text-slate-600">
+                <div><span class="font-medium">Duração:</span> 5 dias</div>
+                <div><span class="font-medium">Estação:</span> Jan–Jun</div>
+              </dl>
+              <div class="mt-4 flex items-center justify-between">
+                <span class="text-lg font-bold">R$ 4.100</span>
+                <a href="#contato" class="px-3 py-2 rounded-xl bg-brand-600 text-white text-sm hover:bg-brand-700">Reservar</a>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="text-center mt-10 reveal">
+        <a href="#contato" class="inline-flex items-center px-5 py-3 rounded-2xl bg-mint-500 text-white font-medium hover:bg-mint-600 shadow-soft">Falar com um especialista</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aulas -->
+  <section id="aulas" class="py-16 md:py-24 bg-gradient-to-b from-white to-brand-50/40">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <div class="reveal">
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Programa de aulas de kite</h2>
+          <p class="mt-2 text-slate-600">Metodologia segura e progressiva com instrutores credenciados, barcos de apoio e comunicação por rádio.</p>
+          <ul class="mt-4 space-y-2 text-slate-700">
+            <li class="flex items-start gap-2"><span class="mt-1 h-5 w-5 rounded-full bg-mint-200 grid place-items-center">✓</span> Aula introdutória (3h) — teoria + prática na água</li>
+            <li class="flex items-start gap-2"><span class="mt-1 h-5 w-5 rounded-full bg-mint-200 grid place-items-center">✓</span> Pacotes 6h/9h/12h com progressão garantida</li>
+            <li class="flex items-start gap-2"><span class="mt-1 h-5 w-5 rounded-full bg-mint-200 grid place-items-center">✓</span> Equipamentos premium inclusos</li>
+          </ul>
+          <div class="mt-6">
+            <a href="#contato" class="inline-flex items-center px-4 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 shadow-soft">Quero aprender</a>
+          </div>
+        </div>
+        <div class="reveal">
+          <div class="aspect-[4/3] rounded-3xl bg-gradient-to-br from-brand-200 to-mint-200 shadow-soft"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre -->
+  <section id="sobre" class="py-16 md:py-24">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid lg:grid-cols-3 gap-8 items-start">
+        <div class="lg:col-span-2 reveal">
+          <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Quem somos</h2>
+          <p class="mt-2 text-slate-600">Somos uma agência paraense especializada em experiências de kite surf na Amazônia. Operamos com guias locais, frota própria e parceiros de hospedagem selecionados. Segurança e respeito à natureza estão no centro do nosso trabalho.</p>
+          <div class="mt-6 grid sm:grid-cols-3 gap-3">
+            <div class="p-4 rounded-2xl border border-slate-200 bg-white">
+              <div class="text-2xl font-extrabold">10+</div>
+              <div class="text-xs text-slate-500">anos de operação</div>
+            </div>
+            <div class="p-4 rounded-2xl border border-slate-200 bg-white">
+              <div class="text-2xl font-extrabold">1.5k</div>
+              <div class="text-xs text-slate-500">clientes guiados</div>
+            </div>
+            <div class="p-4 rounded-2xl border border-slate-200 bg-white">
+              <div class="text-2xl font-extrabold">0</div>
+              <div class="text-xs text-slate-500">acidentes graves</div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal p-6 rounded-3xl border border-slate-200 bg-gradient-to-br from-brand-50 to-white shadow-soft">
+          <h3 class="font-semibold">Por que o Pará?</h3>
+          <p class="text-slate-600 mt-2 text-sm">Ventos alísios consistentes, vastas áreas rasas, maré previsível e praias extensas criam um playground perfeito para todos os níveis.</p>
+          <ul class="mt-3 text-sm list-disc pl-5 text-slate-700 space-y-1">
+            <li>Água morna o ano inteiro</li>
+            <li>Picos para iniciantes e avançados</li>
+            <li>Cultura, gastronomia e natureza únicas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-16 md:py-24 bg-gradient-to-b from-white to-mint-50/50">
+    <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight text-center">Perguntas frequentes</h2>
+      <div class="mt-8 space-y-3">
+        <!-- FAQ Item -->
+        <details class="group rounded-2xl border border-slate-200 bg-white p-4 reveal">
+          <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+            Preciso levar meu equipamento?
+            <span class="ml-4 transition-transform group-open:rotate-45">＋</span>
+          </summary>
+          <p class="mt-2 text-slate-600 text-sm">Opcional. Oferecemos equipamentos premium para aluguel. Recomendamos trazer seu trapézio e lycra pessoais.</p>
+        </details>
+        <details class="group rounded-2xl border border-slate-200 bg-white p-4 reveal">
+          <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+            As aulas incluem seguro?
+            <span class="ml-4 transition-transform group-open:rotate-45">＋</span>
+          </summary>
+          <p class="mt-2 text-slate-600 text-sm">Sim, todas as aulas e trips incluem cobertura de seguro esportivo durante as atividades.</p>
+        </details>
+        <details class="group rounded-2xl border border-slate-200 bg-white p-4 reveal">
+          <summary class="flex cursor-pointer list-none items-center justify-between font-medium">
+            Qual a melhor época para ir?
+            <span class="ml-4 transition-transform group-open:rotate-45">＋</span>
+          </summary>
+          <p class="mt-2 text-slate-600 text-sm">Julho a dezembro é o pico de ventos. Janeiro a junho tem janelas variáveis, ótimas para explorar lagunas com maré certa.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section id="contato" class="py-16 md:py-24">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="rounded-3xl border border-slate-200 bg-white p-6 md:p-8 shadow-soft reveal">
+        <h2 class="text-2xl md:text-3xl font-extrabold tracking-tight">Fale com a equipe</h2>
+        <p class="mt-2 text-slate-600">Conte seus objetivos, nível, datas e destino desejado. Respondemos em até 1 dia útil.</p>
+        <form class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4" onsubmit="event.preventDefault(); alert('Formulário enviado. Em produção, integrar com seu backend/CRM.');">
+          <label class="block">
+            <span class="text-xs text-slate-500">Nome</span>
+            <input required class="mt-1 w-full rounded-xl border-slate-200 focus:border-brand-500 focus:ring-brand-500" placeholder="Seu nome" />
+          </label>
+          <label class="block">
+            <span class="text-xs text-slate-500">Email</span>
+            <input type="email" required class="mt-1 w-full rounded-xl border-slate-200 focus:border-brand-500 focus:ring-brand-500" placeholder="voce@email.com" />
+          </label>
+          <label class="block md:col-span-2">
+            <span class="text-xs text-slate-500">Mensagem</span>
+            <textarea rows="4" class="mt-1 w-full rounded-xl border-slate-200 focus:border-brand-500 focus:ring-brand-500" placeholder="Nível, datas, destino..." ></textarea>
+          </label>
+          <div class="md:col-span-2 flex items-center justify-between">
+            <label class="inline-flex items-center gap-2 text-sm text-slate-600"><input type="checkbox" class="rounded"/> Aceito os <a href="#termos" class="text-brand-700 hover:underline">termos</a>.</label>
+            <button class="px-4 py-2 rounded-xl bg-mint-500 text-white font-medium hover:bg-mint-600">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Termos (placeholder) -->
+  <section id="termos" class="py-12">
+    <div class="max-w-4xl mx-auto px-4">
+      <h3 class="text-xl font-semibold">Termos & Política (resumo)</h3>
+      <p class="mt-2 text-slate-600 text-sm">Conteúdo de exemplo. Inclua política de cancelamento, responsabilidade, seguro, privacidade e cookies.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="max-w-7xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-4 items-center">
+      <div class="text-sm text-slate-600">© 2025 <span class="font-medium">xxx</span>. Todos os direitos reservados. <span class="text-slate-500">Página criada pela <span class="font-semibold">NoHeroes</span>.</span></div>
+      <div class="md:justify-self-end flex gap-4 text-sm text-slate-600">
+        <a href="#termos" class="hover:text-brand-700">Termos</a>
+        <a href="#termos" class="hover:text-brand-700">Privacidade</a>
+        <a href="#contato" class="hover:text-brand-700">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Drawer logic
+    const drawer = document.getElementById('drawer');
+    const openBtn = document.getElementById('openDrawer');
+    const closeBtn = document.getElementById('closeDrawer');
+    const toggleDrawer = (open) => {
+      drawer.style.animation = open ? 'slideIn 300ms ease-out forwards' : 'slideOut 250ms ease-in forwards';
+      drawer.setAttribute('aria-hidden', (!open).toString());
+    };
+    openBtn?.addEventListener('click', () => toggleDrawer(true));
+    closeBtn?.addEventListener('click', () => toggleDrawer(false));
+    drawer.addEventListener('click', (e) => { if (e.target === drawer) toggleDrawer(false) });
+
+    // Scroll reveal via IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Filtering & sorting
+    const form = document.getElementById('filterForm');
+    const grid = document.getElementById('cardsGrid');
+    const sortSelect = document.getElementById('sortSelect');
+
+    function applyFilters() {
+      const data = new FormData(form);
+      const filters = Object.fromEntries(data.entries());
+      const start = filters.inicio ? new Date(filters.inicio) : null;
+      const end = filters.fim ? new Date(filters.fim) : null;
+
+      document.querySelectorAll('#cardsGrid .card').forEach(card => {
+        const matchDestino = !filters.destino || card.dataset.destino === filters.destino;
+        const matchNivel = !filters.nivel || card.dataset.nivel === filters.nivel;
+        const matchTipo = !filters.tipo || card.dataset.tipo === filters.tipo;
+        const matchEstacao = !filters.estacao || card.dataset.estacao === filters.estacao;
+
+        // Date placeholder rule: show all by default (sem calendário real por card)
+        const matchDate = true;
+
+        const visible = matchDestino && matchNivel && matchTipo && matchEstacao && matchDate;
+        card.style.display = visible ? '' : 'none';
+      });
+
+      applySort();
+    }
+
+    function applySort() {
+      const value = sortSelect?.value;
+      const cards = Array.from(grid.children).filter(el => el.style.display !== 'none');
+      const by = (key) => (a, b) => Number(a.dataset[key]) - Number(b.dataset[key]);
+
+      if (value === 'preco') cards.sort(by('preco'));
+      else if (value === 'duracao') cards.sort(by('duracao'));
+      else return; // recomendado mantém ordem original
+
+      cards.forEach(c => grid.appendChild(c));
+    }
+
+    form.addEventListener('change', applyFilters);
+    sortSelect?.addEventListener('change', applySort);
+
+    // Initial run
+    applyFilters();
+  </script>
+</body>
+                                                 </html>
