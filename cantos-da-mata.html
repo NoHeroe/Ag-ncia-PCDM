@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cantos da Mata - Pousada Luxuosa em Chapada dos Guimarães, Cuiabá. Experiências autênticas, natureza intocada, desaceleração.">
+    <title>Cantos da Mata | Chapada dos Guimarães</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Lora:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+        :root {
+            --color-cream: #F5F1E8;
+            --color-beige-light: #EAE4D6;
+            --color-beige-dark: #D9CFC2;
+            --color-brown-dark: #5A4A3A;
+            --color-brown-light: #8B7355;
+            --color-green-forest: #2D5016;
+            --color-green-accent: #6B8E23;
+        }
+
+        * {
+            font-family: 'Inter', 'Lora', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lora', serif;
+            font-weight: 600;
+            color: var(--color-brown-dark);
+            letter-spacing: 0.02em;
+        }
+
+        body {
+            background-color: var(--color-cream);
+            color: var(--color-brown-dark);
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header styles */
+        header {
+            background: linear-gradient(135deg, var(--color-brown-dark) 0%, rgba(90, 74, 58, 0.95) 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Navigation menu */
+        .nav-menu {
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu.active {
+            transform: translateX(0);
+        }
+
+        .nav-overlay {
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Menu items styling */
+        .menu-item {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            color: var(--color-cream);
+            padding: 0.75rem 1.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            color: var(--color-green-accent);
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0.5rem;
+            left: 1.25rem;
+            width: 3px;
+            height: 0;
+            background-color: var(--color-green-accent);
+            transition: height 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            height: 1.5rem;
+        }
+
+        /* Submenu */
+        .submenu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border-top: 2px solid var(--color-green-accent);
+            min-width: 200px;
+            padding: 0.5rem 0;
+            margin-top: 0.5rem;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .menu-item:hover .submenu {
+            display: block;
+        }
+
+        .submenu-item {
+            display: block;
+            padding: 0.75rem 1.5rem;
+            color: var(--color-beige-light);
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .submenu-item:hover {
+            background: rgba(107, 142, 35, 0.1);
+            border-left-color: var(--color-green-accent);
+            color: var(--color-green-accent);
+        }
+
+        /* Hero section */
+        .hero-section {
+            height: 90vh;
+            background: linear-gradient(135deg, var(--color-brown-dark) 0%, var(--color-brown-light) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            color: var(--color-cream);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .hero-content .tagline {
+            font-family: 'Crimson Text', serif;
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--color-beige-light);
+            font-style: italic;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        /* Hero decorative line */
+        .accent-line {
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(180deg, var(--color-green-accent), transparent);
+            margin: 0 auto 2rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 2rem;
+            border-radius: 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .btn-primary {
+            background: var(--color-green-accent);
+            color: var(--color-cream);
+            border-color: var(--color-green-accent);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-green-forest);
+            border-color: var(--color-green-forest);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(45, 80, 22, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-cream);
+            border-color: var(--color-cream);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-cream);
+            color: var(--color-brown-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Section spacing */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .section {
+                padding: 6rem 4rem;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: var(--color-beige-light);
+            border-radius: 0;
+            padding: 2rem;
+            border-top: 3px solid var(--color-green-accent);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-top-color: var(--color-brown-dark);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--color-brown-light);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Gallery grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 1;
+            background: var(--color-beige-dark);
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(90, 74, 58, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            color: var(--color-cream);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+            gap: 1.5rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--color-beige-dark);
+        }
+
+        .divider-text {
+            color: var(--color-brown-light);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--color-brown-dark);
+            color: var(--color-cream);
+            padding: 3rem 2rem 1rem;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--color-beige-light);
+        }
+
+        footer h4 {
+            color: var(--color-cream);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        footer a {
+            color: var(--color-beige-light);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        footer a:hover {
+            color: var(--color-green-accent);
+        }
+
+        /* Hamburger menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .hamburger span {
+                width: 25px;
+                height: 2px;
+                background: var(--color-cream);
+                transition: all 0.3s ease;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -7px);
+            }
+
+            .menu-desktop {
+                display: none !important;
+            }
+
+            .submenu {
+                position: static;
+                display: none !important;
+                background: rgba(0, 0, 0, 0.1);
+                border: none;
+                border-left: 3px solid var(--color-green-accent);
+                margin-top: 0;
+                border-radius: 0;
+            }
+
+            .menu-item {
+                padding: 1rem 1.5rem;
+                display: block;
+                width: 100%;
+                text-align: left;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .menu-item::before {
+                display: none;
+            }
+
+            .menu-item:hover::before {
+                height: 0;
+            }
+
+            .menu-item.active .submenu {
+                display: block !important;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--color-brown-dark);
+                transform: translateX(-100%);
+                overflow-y: auto;
+                padding-top: 80px;
+                box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.3);
+            }
+
+            .nav-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                opacity: 0;
+                pointer-events: none;
+                z-index: 99;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animate-slide {
+            animation: slideInDown 0.6s ease-out;
+        }
+
+        /* Scroll reveal */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Contact form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-brown-dark);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--color-beige-dark);
+            background: var(--color-cream);
+            color: var(--color-brown-dark);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-green-accent);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(107, 142, 35, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Section titles */
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-align: center;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .section-subtitle {
+            font-family: 'Crimson Text', serif;
+            font-size: 1.2rem;
+            text-align: center;
+            color: var(--color-brown-light);
+            font-style: italic;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        /* Background patterns */
+        .bg-pattern {
+            position: relative;
+        }
+
+        .bg-pattern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(107, 142, 35, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(139, 115, 85, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Accessible skip link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-green-accent);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+    </style>
+</head>
+<body class="bg-cream">
+    <a href="#main-content" class="skip-link">Pular para conteúdo principal</a>
+
+    <!-- Header / Navigation -->
+    <header class="animate-slide">
+        <div class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="text-2xl md:text-3xl font-bold text-cream" style="font-family: 'Lora', serif; letter-spacing: 0.05em;">
+                CANTOS DA MATA
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="menu-desktop hidden md:flex items-center gap-1">
+                <a href="#home" class="menu-item">Home</a>
+                
+                <div class="relative group">
+                    <button class="menu-item">O Propósito</button>
+                    <div class="submenu">
+                        <a href="#vision" class="submenu-item block">Visão</a>
+                        <a href="#discovery" class="submenu-item block">Descoberta</a>
+                        <a href="#sustainability" class="submenu-item block">Sustentabilidade</a>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <button class="menu-item">O Lodge</button>
+                    <div class="submenu">
+                        <a href="#rooms" class="submenu-item block">Acomodações</a>
+                        <a href="#experiences" class="submenu-item block">Experiências</a>
+                        <a href="#dining" class="submenu-item block">Gastronomia</a>
+                    </div>
+                </div>
+
+                <a href="#contact" class="menu-item">Contato</a>
+                <a href="#" class="btn btn-primary ml-4">Reservar</a>
+            </nav>
+
+            <!-- Mobile Hamburger -->
+            <div class="md:hidden flex items-center gap-4">
+                <a href="#" class="btn btn-primary text-xs">Reservar</a>
+                <button class="hamburger" id="hamburgerBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <nav class="nav-menu md:hidden" id="navMenu">
+                <a href="#home" class="menu-item">Home</a>
+                
+                <div class="menu-item" data-submenu="purpose">
+                    O Propósito
+                    <span class="ml-auto">▼</span>
+                </div>
+                <div class="submenu" id="submenu-purpose">
+                    <a href="#vision" class="submenu-item">Visão</a>
+                    <a href="#discovery" class="submenu-item">Descoberta</a>
+                    <a href="#sustainability" class="submenu-item">Sustentabilidade</a>
+                </div>
+
+                <div class="menu-item" data-submenu="lodge">
+                    O Lodge
+                    <span class="ml-auto">▼</span>
+                </div>
+                <div class="submenu" id="submenu-lodge">
+                    <a href="#rooms" class="submenu-item">Acomodações</a>
+                    <a href="#experiences" class="submenu-item">Experiências</a>
+                    <a href="#dining" class="submenu-item">Gastronomia</a>
+                </div>
+
+                <a href="#contact" class="menu-item">Contato</a>
+            </nav>
+
+            <div class="nav-overlay md:hidden" id="navOverlay"></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section bg-pattern">
+            <div class="hero-content">
+                <div class="accent-line"></div>
+                <h1>Cantos da Mata</h1>
+                <p class="tagline">Desacelere. Respire. Renasça.</p>
+                <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="btn btn-primary" onclick="document.getElementById('experiences').scrollIntoView()">Explorar Experiências</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('rooms').scrollIntoView()">Nossas Acomodações</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vision Section -->
+        <section id="vision" class="section bg-white">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="section-title scroll-reveal">Nossa Visão</h2>
+                <p class="section-subtitle scroll-reveal">Um refúgio na natureza para restaurar corpo, mente e espírito</p>
+                
+                <div class="grid md:grid-cols-3 gap-6 mt-8">
+                    <div class="card scroll-reveal" style="animation-delay: 0.1s">
+                        <h3>🌿 Natureza Intocada</h3>
+                        <p>Localizado em Chapada dos Guimarães, cercado por cachoeiras, cavernas e trilhas que revelam a beleza bruta da Amazônia.</p>
+                    </div>
+                    <div class="card scroll-reveal" style="animation-delay: 0.2s">
+                        <h3>♻️ Sustentabilidade</h3>
+                        <p>Energia solar, construções ecológicas e práticas que respeitam o ecossistema. Luxo responsável é nosso compromisso.</p>
+                    </div>
+                    <div class="card scroll-reveal" style="animation-delay: 0.3s">
+                        <h3>✨ Desaceleração</h3>
+                        <p>Longe da correria urbana. Um espaço pensado para reconectar com o essencial e restaurar seu bem-estar integral.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Discovery Section -->
+        <section id="discovery" class="section" style="background: linear-gradient(135deg, var(--color-beige-light) 0%, var(--color-beige-dark) 100%);">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="section-title scroll-reveal">Descoberta</h2>
+                <p class="section-subtitle scroll-reveal">Mais que hospedagem, uma jornada de transformação</p>
+                
+                <div class="prose prose-lg max-w-none text-brown-dark scroll-reveal" style="color: var(--color-brown-dark);">
+                    <p style="font-size: 1.05rem; line-height: 1.8; text-align: center;">
+                        Aqui você não é apenas um hóspede, você é um explorador. Cada amanhecer no Mirante do Centro Geodésico da América do Sul, cada cascata descoberta, cada noite ao redor da fogueira nos transforma. Cantos da Mata é o lugar onde você se reencontra com o que importa.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rooms Section -->
+        <section id="rooms" class="section bg-white">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="section-title scroll-reveal">Acomodações</h2>
+                <p class="section-subtitle scroll-reveal">Cada refúgio é único, assim como sua experiência</p>
+                
+                <div class="gallery-grid mt-10">
+                    <div class="gallery-item scroll-reveal">
+                        <div style="background: linear-gradient(135deg, var(--color-brown-dark), var(--color-brown-light)); display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="text-center text-cream">
+                                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🏠</div>
+                                <div style="font-weight: 600;">Casa Caracol</div>
+                            </div>
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">Espiral de conforto</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item scroll-reveal">
+                        <div style="background: linear-gradient(135deg, var(--color-brown-light), var(--color-green-forest)); display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="text-center text-cream">
+                                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🌲</div>
+                                <div style="font-weight: 600;">Casinha na Mata</div>
+                            </div>
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">Imerso na floresta</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item scroll-reveal">
+                        <div style="background: linear-gradient(135deg, var(--color-green-forest), var(--color-green-accent)); display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="text-center text-cream">
+                                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔐</div>
+                                <div style="font-weight: 600;">Esconderijo</div>
+                            </div>
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">Seu refúgio privado</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item scroll-reveal">
+                        <div style="background: linear-gradient(135deg, var(--color-beige-dark), var(--color-brown-light)); display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="text-center text-brown-dark">
+                                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🛖</div>
+                                <div style="font-weight: 600;">Abrigo</div>
+                            </div>
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">Segurança e aconchego</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item scroll-reveal">
+                        <div style="background: linear-gradient(135deg, #8B7355, #5A4A3A); display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="text-center text-cream">
+                                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🪨</div>
+                                <div style="font-weight: 600;">Casa de Pedra</div>
+                            </div>
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">Estrutura ancestral</div>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item scroll-reveal">
+                        <div style="background: linear-gradient(135deg, var(--color-green-accent), var(--color-brown-dark)); display: flex; align-items: center; justify-content: center; height: 100%;">
+                            <div class="text-center text-cream">
+                                <div style="font-size: 3rem; margin-bottom: 0.5rem;">🏊</div>
+                                <div style="font-weight: 600;">Piscina & Bar</div>
+                            </div>
+                        </div>
+                        <div class="gallery-overlay">
+                            <div class="gallery-text">Centro de encontro</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experiences Section -->
+        <section id="experiences" class="section" style="background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-beige-light) 100%);">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="section-title scroll-reveal">Experiências Inesquecíveis</h2>
+                <p class="section-subtitle scroll-reveal">Trilhas, cachoeiras, descobertas e momento de pura conexão</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mt-10">
+                    <!-- Waterfall Circuits -->
+                    <div class="card scroll-reveal">
+                        <h3>🌊 Circuitos de Cachoeiras</h3>
+                        <p><strong>Sete Cachoeiras:</strong> Cachoeira dos Namorados e outras maravilhas aquáticas em trilhas bem marcadas.</p>
+                        <p style="margin-top: 1rem; border-top: 1px solid var(--color-beige-dark); padding-top: 1rem;">
+                            <strong>Véu de Noiva, Bailarina, Tartaruga:</strong> Quedas d'água que parecem saídas de sonhos.
+                        </p>
+                    </div>
+
+                    <!-- Trails & Land Circuits -->
+                    <div class="card scroll-reveal" style="animation-delay: 0.1s">
+                        <h3>🥾 Trilhas Terrestres</h3>
+                        <p><strong>Cidade de Pedras com Banho no Rio Claro:</strong> Formações rochosas extraordinárias e água cristalina para refrescar.</p>
+                        <p style="margin-top: 1rem; border-top: 1px solid var(--color-beige-dark); padding-top: 1rem;">
+                            Trilhas locais, birdwatching avançado e contato real com a fauna amazônica.
+                        </p>
+                    </div>
+
+                    <!-- Caverns & Geological -->
+                    <div class="card scroll-reveal" style="animation-delay: 0.2s">
+                        <h3>🕳️ Cavernas Mágicas</h3>
+                        <p><strong>Aroejari e Geladeira:</strong> Explorar formações calcárias, temperatura natural refrescante e mistério geológico.</p>
+                        <p style="margin-top: 1rem; border-top: 1px solid var(--color-beige-dark); padding-top: 1rem;">
+                            Experiências guiadas por profissionais locais especializados.
+                        </p>
+                    </div>
+
+                    <!-- Dawn & Special Moments -->
+                    <div class="card scroll-reveal" style="animation-delay: 0.3s">
+                        <h3>🌅 Momentos Singulares</h3>
+                        <p><strong>Nascer do Sol no Mirante:</strong> Centro Geodésico da América do Sul - amanhecer onde os meridianos convergem.</p>
+                        <p style="margin-top: 1rem; border-top: 1px solid var(--color-beige-dark); padding-top: 1rem;">
+                            <strong>Fogueira Noturna:</strong> Histórias, conexão e contemplação sob as estrelas.
+                        </p>
+                    </div>
+
+                    <!-- Birdwatching -->
+                    <div class="card scroll-reveal" style="animation-delay: 0.4s">
+                        <h3>🦅 Birdwatching Avançado</h3>
+                        <p>Trilhas especializadas para observação de aves amazônicas. Guias parceiros com vasto conhecimento da fauna local.</p>
+                    </div>
+
+                    <!-- Lagoa Azul -->
+                    <div class="card scroll-reveal" style="animation-delay: 0.5s">
+                        <h3>💎 Lagoa Azul</h3>
+                        <p>Águas cristalinas que mudam de cor conforme a luz solar. Um espetáculo natural de beleza indescritível.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dining / Gastronomy Section -->
+        <section id="dining" class="section bg-white">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="section-title scroll-reveal">Gastronomia Amazônica</h2>
+                <p class="section-subtitle scroll-reveal">Sabores autênticos da floresta, com toque de refinamento</p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mt-10">
+                    <div class="scroll-reveal">
+                        <h3 style="color: var(--color-brown-dark); font-size: 1.3rem; margin-bottom: 1rem;">Restaurante</h3>
+                        <p style="color: var(--color-brown-light); line-height: 1.7;">
+                            Pratos preparados com ingredientes locais. Cada refeição é uma celebração da biodiversidade amazônica, respeitando tradições culinárias e técnicas modernas.
+                        </p>
+                    </div>
+                    <div class="scroll-reveal" style="animation-delay: 0.1s">
+                        <h3 style="color: var(--color-brown-dark); font-size: 1.3rem; margin-bottom: 1rem;">Bar da Piscina</h3>
+                        <p style="color: var(--color-brown-light); line-height: 1.7;">
+                            Drinks refrescantes, coquetéis artesanais e petiscos. O lugar perfeito para desacelerar ao entardecer, imerso na natureza.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="divider mt-10 scroll-reveal">
+                    <span class="divider-text">Sustentabilidade Energética</span>
+                </div>
+
+                <div class="mt-10 p-6 rounded-lg scroll-reveal" style="background: linear-gradient(135deg, rgba(107, 142, 35, 0.1), rgba(139, 115, 85, 0.1));">
+                    <h3 style="color: var(--color-brown-dark); margin-bottom: 1rem;">☀️ Energia Solar</h3>
+                    <p style="color: var(--color-brown-light); line-height: 1.7;">
+                        Nosso compromisso com a sustentabilidade vai além das palavras. Utilizamos energia solar para alimentar todas as nossas operações, reduzindo nossa pegada de carbono enquanto oferecemos conforto de luxo.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section bg-pattern" style="background-color: var(--color-beige-dark);">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="section-title scroll-reveal">Entre em Contato</h2>
+                <p class="section-subtitle scroll-reveal">Estamos prontos para recebê-lo em Cantos da Mata</p>
+                
+                <form class="mt-10 scroll-reveal" onsubmit="handleFormSubmit(event)">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="dates">Datas de Hospedagem</label>
+                            <input type="text" id="dates" name="dates" placeholder="dd/mm/yyyy - dd/mm/yyyy">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-full">Enviar Solicitação</button>
+                </form>
+
+                <div class="divider mt-10 scroll-reveal">
+                    <span class="divider-text">Localização</span>
+                </div>
+
+                <div class="mt-10 text-center scroll-reveal">
+                    <p style="color: var(--color-brown-dark); font-weight: 600; margin-bottom: 0.5rem;">Chapada dos Guimarães, Cuiabá - MT</p>
+                    <p style="color: var(--color-brown-light);">Entre a floresta e o céu, esperamos por você.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-pattern" style="background-color: var(--color-brown-dark);">
+        <div class="max-w-6xl mx-auto px-4 md:px-6 py-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4>Sobre</h4>
+                    <p>Cantos da Mata é mais que um lodge. É um convite para desacelerar, respirar e renascer na natureza.</p>
+                </div>
+                <div>
+                    <h4>Explore</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#vision">Visão</a></li>
+                        <li><a href="#rooms">Acomodações</a></li>
+                        <li><a href="#experiences">Experiências</a></li>
+                        <li><a href="#dining">Gastronomia</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contato</h4>
+                    <ul class="space-y-2">
+                        <li><a href="mailto:contato@cantosadamata.com">contato@cantosadamata.com</a></li>
+                        <li><a href="tel:+556533221000">(65) 3322-1000</a></li>
+                        <li><a href="#">Instagram</a></li>
+                        <li><a href="#">Facebook</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Sustentabilidade</h4>
+                    <p style="font-size: 0.9rem;">Operações 100% com energia solar. Compromisso contínuo com a preservação ambiental.</p>
+                </div>
+            </div>
+
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; text-align: center;">
+                <p style="font-size: 0.85rem; color: var(--color-beige-light);">
+                    © 2024 Cantos da Mata. Todos os direitos reservados. | Desenvolvido com ❤️ para a natureza.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburgerBtn');
+        const navMenu = document.getElementById('navMenu');
+        const navOverlay = document.getElementById('navOverlay');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+        });
+
+        // Submenu toggle on mobile
+        document.querySelectorAll('[data-submenu]').forEach(item => {
+            item.addEventListener('click', (e) => {
+                const submenuId = item.getAttribute('data-submenu');
+                const submenu = document.getElementById(`submenu-${submenuId}`);
+                item.classList.toggle('active');
+                if (submenu.style.display === 'block') {
+                    submenu.style.display = 'none';
+                } else {
+                    submenu.style.display = 'block';
+                }
+            });
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                navOverlay.classList.remove('active');
+            });
+        });
+
+        navOverlay.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            navOverlay.classList.remove('active');
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            
+            // Collect form data
+            const formData = {
+                name: form.name.value,
+                email: form.email.value,
+                phone: form.phone.value,
+                dates: form.dates.value,
+                message: form.message.value
+            };
+
+            // Here you would send the data to your server
+            console.log('Form submitted:', formData);
+            
+            // Show success message
+            alert('Obrigado! Sua solicitação foi enviada. Em breve entraremos em contato.');
+            form.reset();
+        }
+
+        // Smooth anchor scroll for older browsers
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
