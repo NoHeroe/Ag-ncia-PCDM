@@ -1,0 +1,15 @@
+# OS / editor
+Thumbs.db
+.DS_Store
+*.log
+
+# Dependencies (image tooling)
+node_modules/
+tools/node_modules/
+tools/package-lock.json
+
+# Fontes pesadas (fotos originais + flyers) — não fazem parte do site publicado
+Pousada/
+
+# Backup local do index.html original (preservado também no histórico do Git)
+backup/

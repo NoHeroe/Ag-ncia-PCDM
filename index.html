@@ -1,2326 +1,533 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cantos da Mata - Pousada Luxuosa em Chapada dos Guimarães">
-    <title>Cantos da Mata</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --color-black: #000000;
-            --color-cream: #F5F1E8;
-            --color-beige: #EAE4D6;
-            --color-brown: #8B7355;
-            --color-brown-dark: #5A4A3A;
-            --color-grey: #888888;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--color-cream);
-            color: var(--color-black);
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Lora', serif;
-        }
-
-        html { scroll-behavior: smooth; }
-
-        /* ─── HEADER ─────────────────────────────── */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--color-black);
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        .header-content {
-            max-width: 100%;
-            padding: 0 2rem;
-            height: 56px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .logo {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--color-cream);
-            text-decoration: none;
-            letter-spacing: 0.08em;
-            font-family: 'Lora', serif;
-        }
-
-        .nav-desktop {
-            display: flex;
-            align-items: center;
-            height: 100%;
-            gap: 0;
-        }
-
-        .nav-item {
-            position: relative;
-            color: rgba(245, 241, 232, 0.6);
-            padding: 0 1rem;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: color 0.3s;
-            text-decoration: none;
-        }
-
-        .nav-item:hover { color: var(--color-brown); }
-
-        .nav-item::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 1rem;
-            width: 3px;
-            height: 0;
-            background-color: var(--color-brown);
-            transition: height 0.3s;
-        }
-
-        .nav-item:hover::before { height: 4px; }
-
-        .submenu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: rgba(0,0,0,0.95);
-            min-width: 220px;
-            border-top: 2px solid var(--color-brown);
-            z-index: 1001;
-        }
-
-        .submenu-trigger:hover .submenu { display: block; }
-
-        .submenu a {
-            display: block;
-            padding: 0.75rem 1.5rem;
-            color: rgba(245, 241, 232, 0.7);
-            font-size: 0.7rem;
-            font-weight: 400;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.2s;
-            border-left: 3px solid transparent;
-        }
-
-        .submenu a:hover {
-            color: var(--color-brown);
-            background: rgba(139, 115, 85, 0.1);
-            border-left-color: var(--color-brown);
-        }
-
-        .btn-header {
-            padding: 0.5rem 1.25rem;
-            background: var(--color-brown);
-            color: var(--color-cream);
-            border: none;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            margin-left: 1rem;
-        }
-
-        .btn-header:hover { background: var(--color-brown-dark); }
-
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            background: none;
-            border: none;
-            cursor: pointer;
-            gap: 5px;
-            padding: 0;
-        }
-
-        .hamburger span {
-            width: 24px;
-            height: 2px;
-            background: var(--color-cream);
-            transition: all 0.3s;
-        }
-
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
-
-        .nav-mobile {
-            display: none;
-            position: fixed;
-            top: 56px;
-            left: 0;
-            width: 100%;
-            max-height: calc(100vh - 56px);
-            background: var(--color-black);
-            overflow-y: auto;
-            z-index: 999;
-            transform: translateX(-100%);
-            transition: transform 0.3s;
-        }
-
-        .nav-mobile.active { transform: translateX(0); }
-
-        .nav-mobile-item {
-            display: block;
-            padding: 1rem 1.5rem;
-            color: rgba(245, 241, 232, 0.7);
-            border-bottom: 1px solid rgba(139, 115, 85, 0.2);
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .nav-mobile-item:hover {
-            color: var(--color-brown);
-            background: rgba(139, 115, 85, 0.1);
-        }
-
-        .submenu-mobile {
-            display: none;
-            background: rgba(0,0,0,0.5);
-            border-left: 3px solid var(--color-brown);
-        }
-
-        .submenu-mobile.active { display: block; }
-
-        .submenu-mobile a {
-            display: block;
-            padding: 0.75rem 1.5rem 0.75rem 3rem;
-            color: rgba(245, 241, 232, 0.6);
-            font-size: 0.65rem;
-            text-decoration: none;
-        }
-
-        @media (max-width: 1024px) {
-            .nav-desktop { display: none; }
-            .hamburger { display: flex; }
-            .nav-mobile { display: block; }
-        }
-
-        /* ─── PAGE SYSTEM ─────────────────────────── */
-        .page { display: none; margin-top: 56px; }
-        .page.active { display: block; }
-
-        /* ─── HOME: HERO FULLSCREEN ───────────────── */
-        .home-hero {
-            position: relative;
-            width: 100%;
-            height: calc(100vh - 56px);
-            min-height: 600px;
-            overflow: hidden;
-            background: var(--color-black);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .home-hero-bg {
-            position: absolute;
-            inset: 0;
-            background: 
-                linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080"><defs><radialGradient id="g" cx="50%" cy="40%"><stop offset="0%" stop-color="%232d4a1e"/><stop offset="40%" stop-color="%231a2e10"/><stop offset="100%" stop-color="%230a0f06"/></radialGradient></defs><rect fill="url(%23g)" width="1920" height="1080"/></svg>') center / cover no-repeat;
-        }
-
-        /* Animated leaves overlay */
-        .home-hero-bg::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse 80% 60% at 70% 30%, rgba(107,142,35,0.08) 0%, transparent 70%),
-                        radial-gradient(ellipse 50% 80% at 20% 60%, rgba(90,74,58,0.12) 0%, transparent 60%);
-        }
-
-        .home-hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 0 2rem;
-            animation: heroFadeIn 1.8s cubic-bezier(0.16,1,0.3,1) both;
-        }
-
-        @keyframes heroFadeIn {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .home-hero-eyebrow {
-            font-size: 0.65rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            margin-bottom: 1.5rem;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            animation: heroFadeIn 1.8s 0.2s cubic-bezier(0.16,1,0.3,1) both;
-        }
-
-        .home-hero h1 {
-            font-size: clamp(3rem, 9vw, 6.5rem);
-            color: var(--color-cream);
-            font-weight: 500;
-            line-height: 1.05;
-            letter-spacing: -0.01em;
-            margin-bottom: 1.5rem;
-            font-style: italic;
-        }
-
-        .home-hero-tagline {
-            font-size: clamp(0.85rem, 2vw, 1.1rem);
-            color: rgba(245,241,232,0.65);
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            margin-bottom: 3rem;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .home-hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.85rem 2rem;
-            background: var(--color-brown);
-            color: var(--color-cream);
-            text-decoration: none;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            transition: background 0.3s;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .home-hero-cta:hover { background: var(--color-brown-dark); }
-
-        .home-hero-scroll {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            color: rgba(245,241,232,0.4);
-            font-size: 0.6rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            z-index: 2;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .scroll-line {
-            width: 1px;
-            height: 40px;
-            background: linear-gradient(to bottom, rgba(245,241,232,0.4), transparent);
-            animation: scrollPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes scrollPulse {
-            0%, 100% { opacity: 0.4; transform: scaleY(1); }
-            50% { opacity: 1; transform: scaleY(1.1); }
-        }
-
-        /* ─── HOME: LOGO INTERLUDE ────────────────── */
-        .home-logo-interlude {
-            background: var(--color-cream);
-            padding: 5rem 2rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(139,115,85,0.15);
-        }
-
-        .home-logo-interlude .eyebrow {
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            margin-bottom: 2rem;
-        }
-
-        .home-logo-interlude p {
-            max-width: 620px;
-            margin: 2rem auto 0;
-            font-size: 1.05rem;
-            line-height: 1.85;
-            color: var(--color-brown-dark);
-            font-family: 'Lora', serif;
-            font-weight: 400;
-        }
-
-        /* ─── HOME: INTRO SPLIT ───────────────────── */
-        .home-intro {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 85vh;
-        }
-
-        @media (max-width: 900px) {
-            .home-intro { grid-template-columns: 1fr; }
-        }
-
-        .home-intro-image {
-            position: relative;
-            overflow: hidden;
-            min-height: 500px;
-            background: var(--color-brown-dark);
-        }
-
-        .home-intro-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 8s ease;
-        }
-
-        .home-intro-image:hover img { transform: scale(1.04); }
-
-        .home-intro-image-caption {
-            position: absolute;
-            bottom: 2rem;
-            left: 2rem;
-            font-size: 0.6rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(245,241,232,0.5);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .home-intro-text {
-            background: var(--color-black);
-            color: var(--color-cream);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 5rem 4rem;
-        }
-
-        @media (max-width: 768px) {
-            .home-intro-text { padding: 3rem 2rem; }
-        }
-
-        .home-intro-text .eyebrow {
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-        }
-
-        .home-intro-text h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            color: var(--color-cream);
-            font-weight: 500;
-            line-height: 1.15;
-            margin-bottom: 2rem;
-            font-style: italic;
-        }
-
-        .home-intro-text p {
-            font-size: 0.95rem;
-            line-height: 1.9;
-            color: rgba(245,241,232,0.65);
-            margin-bottom: 1.5rem;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .link-arrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--color-brown);
-            text-decoration: none;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
-            transition: gap 0.3s;
-            margin-top: 1rem;
-        }
-
-        .link-arrow:hover { gap: 1.25rem; }
-
-        .link-arrow::after {
-            content: '→';
-            font-size: 0.9rem;
-        }
-
-        /* ─── HOME: FEATURED HIGHLIGHTS ──────────── */
-        .home-highlights {
-            background: var(--color-cream);
-            padding: 6rem 2rem;
-        }
-
-        .home-highlights-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .home-highlights-header .eyebrow {
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .home-highlights-header h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 500;
-            color: var(--color-black);
-        }
-
-        .highlights-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 900px) {
-            .highlights-grid { grid-template-columns: 1fr; }
-        }
-
-        .highlight-item {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 3/4;
-            background: var(--color-brown-dark);
-            cursor: pointer;
-        }
-
-        @media (max-width: 900px) {
-            .highlight-item { aspect-ratio: 16/9; }
-        }
-
-        .highlight-item-bg {
-            position: absolute;
-            inset: 0;
-            background-size: cover;
-            background-position: center;
-            transition: transform 6s ease;
-        }
-
-        .highlight-item:hover .highlight-item-bg { transform: scale(1.05); }
-
-        .highlight-item-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
-        }
-
-        .highlight-item-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 2.5rem 2rem;
-            transform: translateY(0.5rem);
-            transition: transform 0.4s ease;
-        }
-
-        .highlight-item:hover .highlight-item-content { transform: translateY(0); }
-
-        .highlight-item-number {
-            font-size: 0.6rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            font-family: 'Inter', sans-serif;
-            margin-bottom: 0.75rem;
-        }
-
-        .highlight-item-content h3 {
-            font-size: 1.5rem;
-            color: var(--color-cream);
-            font-weight: 500;
-            margin-bottom: 0.75rem;
-            font-style: italic;
-        }
-
-        .highlight-item-content p {
-            font-size: 0.85rem;
-            line-height: 1.7;
-            color: rgba(245,241,232,0.65);
-            font-family: 'Inter', sans-serif;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: opacity 0.4s 0.1s ease, transform 0.4s 0.1s ease;
-        }
-
-        .highlight-item:hover .highlight-item-content p {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .highlight-item-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1.25rem;
-            color: var(--color-brown);
-            text-decoration: none;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
-            opacity: 0;
-            transition: opacity 0.4s 0.15s ease;
-        }
-
-        .highlight-item:hover .highlight-item-link { opacity: 1; }
-
-        /* ─── HOME: EXPERIENCES RIBBON ───────────── */
-        .home-experiences {
-            background: var(--color-beige);
-            padding: 6rem 2rem;
-        }
-
-        .home-experiences-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .home-experiences-header {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            margin-bottom: 3.5rem;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .home-experiences-header .eyebrow {
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            margin-bottom: 0.75rem;
-        }
-
-        .home-experiences-header h2 {
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-            font-weight: 500;
-            color: var(--color-black);
-        }
-
-        .experiences-scroll {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 900px) {
-            .experiences-scroll {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .experiences-scroll {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .exp-card {
-            background: var(--color-black);
-            color: var(--color-cream);
-            overflow: hidden;
-            transition: transform 0.3s ease;
-        }
-
-        .exp-card:hover { transform: translateY(-4px); }
-
-        .exp-card-image {
-            aspect-ratio: 4/3;
-            overflow: hidden;
-            background: var(--color-brown-dark);
-        }
-
-        .exp-card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 5s ease;
-        }
-
-        .exp-card:hover .exp-card-image img { transform: scale(1.06); }
-
-        .exp-card-body {
-            padding: 1.75rem;
-        }
-
-        .exp-card-body h3 {
-            font-size: 1.15rem;
-            color: var(--color-cream);
-            font-weight: 500;
-            margin-bottom: 0.75rem;
-        }
-
-        .exp-card-body p {
-            font-size: 0.82rem;
-            line-height: 1.7;
-            color: rgba(245,241,232,0.6);
-            margin-bottom: 1.25rem;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .exp-card-link {
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            text-decoration: none;
-            font-family: 'Inter', sans-serif;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: gap 0.3s;
-        }
-
-        .exp-card-link:hover { gap: 0.85rem; }
-        .exp-card-link::after { content: '→'; }
-
-        /* ─── HOME: QUOTE BANNER ──────────────────── */
-        .home-quote {
-            background: var(--color-brown);
-            padding: 5rem 2rem;
-            text-align: center;
-        }
-
-        .home-quote blockquote {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: clamp(1.4rem, 3vw, 2.2rem);
-            font-weight: 400;
-            color: var(--color-cream);
-            line-height: 1.5;
-            font-style: italic;
-        }
-
-        .home-quote cite {
-            display: block;
-            margin-top: 2rem;
-            font-size: 0.7rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(245,241,232,0.65);
-            font-style: normal;
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* ─── HOME: ACCOMMODATIONS PREVIEW ───────── */
-        .home-accommodations {
-            background: var(--color-cream);
-            padding: 6rem 2rem;
-        }
-
-        .home-accommodations-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .home-accommodations-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .home-accommodations-header .eyebrow {
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .home-accommodations-header h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 500;
-            color: var(--color-black);
-        }
-
-        .accommodations-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .accom-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            min-height: 420px;
-        }
-
-        @media (max-width: 768px) {
-            .accom-row { grid-template-columns: 1fr; }
-        }
-
-        .accom-row:nth-child(even) .accom-image { order: 2; }
-        .accom-row:nth-child(even) .accom-text { order: 1; }
-
-        @media (max-width: 768px) {
-            .accom-row:nth-child(even) .accom-image { order: 0; }
-            .accom-row:nth-child(even) .accom-text { order: 0; }
-        }
-
-        .accom-image {
-            overflow: hidden;
-            background: var(--color-brown-dark);
-        }
-
-        .accom-image-inner {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: transform 6s ease;
-        }
-
-        .accom-image:hover .accom-image-inner { transform: scale(1.04); }
-
-        .accom-text {
-            background: var(--color-black);
-            color: var(--color-cream);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 4rem 3.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .accom-text { padding: 2.5rem 2rem; }
-        }
-
-        .accom-text .eyebrow {
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .accom-text h3 {
-            font-size: clamp(1.6rem, 3vw, 2.2rem);
-            color: var(--color-cream);
-            font-weight: 500;
-            font-style: italic;
-            margin-bottom: 1.25rem;
-        }
-
-        .accom-text p {
-            font-size: 0.9rem;
-            line-height: 1.85;
-            color: rgba(245,241,232,0.6);
-            font-family: 'Inter', sans-serif;
-            margin-bottom: 2rem;
-        }
-
-        /* ─── HOME: SUSTAINABILITY STRIP ─────────── */
-        .home-sustainability {
-            background: var(--color-beige);
-            padding: 6rem 2rem;
-        }
-
-        .home-sustainability-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 5rem;
-            align-items: center;
-        }
-
-        @media (max-width: 900px) {
-            .home-sustainability-inner {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-        }
-
-        .sustainability-text .eyebrow {
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            margin-bottom: 1.25rem;
-        }
-
-        .sustainability-text h2 {
-            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-            font-weight: 500;
-            color: var(--color-black);
-            margin-bottom: 1.5rem;
-            font-style: italic;
-        }
-
-        .sustainability-text p {
-            font-size: 0.95rem;
-            line-height: 1.85;
-            color: var(--color-brown-dark);
-            font-family: 'Inter', sans-serif;
-            margin-bottom: 1.25rem;
-        }
-
-        .sustainability-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-
-        .stat-item {
-            border-top: 2px solid var(--color-brown);
-            padding-top: 1rem;
-        }
-
-        .stat-number {
-            font-size: 2.2rem;
-            font-weight: 600;
-            color: var(--color-brown);
-            font-family: 'Lora', serif;
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: var(--color-brown-dark);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.4;
-        }
-
-        /* ─── HOME: TESTIMONIALS SCROLL ──────────── */
-        .home-testimonials {
-            background: var(--color-black);
-            padding: 5rem 0 5rem 2rem;
-        }
-
-        .home-testimonials-inner {
-            max-width: 100%;
-        }
-
-        .home-testimonials-header {
-            text-align: center;
-            margin-bottom: 3rem;
-            padding-right: 2rem;
-        }
-
-        .home-testimonials-header .eyebrow {
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .home-testimonials-header h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 500;
-            color: var(--color-cream);
-            font-style: italic;
-        }
-
-        .testimonials-scroll-track {
-            display: flex;
-            gap: 1.25rem;
-            overflow-x: auto;
-            padding-right: 2rem;
-            padding-bottom: 1rem;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .testimonials-scroll-track::-webkit-scrollbar { display: none; }
-
-        .testimonial-item {
-            flex: 0 0 340px;
-            scroll-snap-align: start;
-            background: rgba(245,241,232,0.04);
-            border: 1px solid rgba(139,115,85,0.15);
-            padding: 2rem;
-            transition: background 0.3s;
-        }
-
-        @media (max-width: 500px) {
-            .testimonial-item { flex: 0 0 280px; }
-        }
-
-        .testimonial-item:hover { background: rgba(139,115,85,0.07); }
-
-        .testimonial-stars {
-            color: var(--color-brown);
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            margin-bottom: 1rem;
-        }
-
-        .testimonial-text {
-            font-size: 0.9rem;
-            line-height: 1.75;
-            color: rgba(245,241,232,0.7);
-            font-family: 'Lora', serif;
-            font-style: italic;
-            margin-bottom: 1.5rem;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .testimonial-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--color-brown);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
-            color: var(--color-cream);
-            font-family: 'Lora', serif;
-            font-weight: 600;
-            flex-shrink: 0;
-        }
-
-        .testimonial-author-name {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--color-cream);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .testimonial-author-origin {
-            font-size: 0.7rem;
-            color: rgba(245,241,232,0.4);
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* ─── HOME: GALLERY STRIP (horizontal) ───── */
-        .home-gallery {
-            background: var(--color-black);
-            padding: 6rem 0 0;
-        }
-
-        .home-gallery-header {
-            padding: 0 2rem 3rem;
-            text-align: center;
-        }
-
-        .home-gallery-header .eyebrow {
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            margin-bottom: 1rem;
-        }
-
-        .home-gallery-header h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 500;
-            color: var(--color-cream);
-            font-style: italic;
-        }
-
-        .gallery-strip {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 3px;
-        }
-
-        @media (max-width: 700px) {
-            .gallery-strip { grid-template-columns: 1fr 1fr; }
-        }
-
-        .gallery-cell {
-            aspect-ratio: 16/7;
-            overflow: hidden;
-            position: relative;
-            background: var(--color-brown-dark);
-        }
-
-        @media (max-width: 700px) {
-            .gallery-cell { aspect-ratio: 16/9; }
-        }
-
-        .gallery-cell-bg {
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: transform 6s ease;
-        }
-
-        .gallery-cell:hover .gallery-cell-bg { transform: scale(1.06); }
-
-        .gallery-cell-label {
-            position: absolute;
-            bottom: 1rem;
-            left: 1rem;
-            font-size: 0.55rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: rgba(245,241,232,0.5);
-            font-family: 'Inter', sans-serif;
-        }
-        .home-cta-final {
-            position: relative;
-            background: var(--color-black);
-            padding: 8rem 2rem;
-            text-align: center;
-            overflow: hidden;
-        }
-
-        .home-cta-final::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(139,115,85,0.12) 0%, transparent 70%);
-        }
-
-        .home-cta-final-inner {
-            position: relative;
-            z-index: 1;
-        }
-
-        .home-cta-final .eyebrow {
-            font-size: 0.6rem;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--color-brown);
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-        }
-
-        .home-cta-final h2 {
-            font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: 500;
-            color: var(--color-cream);
-            font-style: italic;
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-
-        .home-cta-final p {
-            font-size: 1rem;
-            color: rgba(245,241,232,0.5);
-            font-family: 'Inter', sans-serif;
-            margin-bottom: 3rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            padding: 1rem 2.5rem;
-            background: var(--color-brown);
-            color: var(--color-cream);
-            text-decoration: none;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
-            transition: background 0.3s;
-            cursor: pointer;
-            border: none;
-        }
-
-        .btn-primary:hover { background: var(--color-brown-dark); }
-
-        .btn-outline {
-            padding: 1rem 2.5rem;
-            background: transparent;
-            color: var(--color-cream);
-            text-decoration: none;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            font-family: 'Inter', sans-serif;
-            border: 1px solid rgba(245,241,232,0.3);
-            transition: border-color 0.3s, color 0.3s;
-            cursor: pointer;
-        }
-
-        .btn-outline:hover {
-            border-color: var(--color-brown);
-            color: var(--color-brown);
-        }
-
-        /* ─── GENERIC PAGES ───────────────────────── */
-        .hero {
-            width: 100%;
-            height: calc(100vh - 56px);
-            min-height: 500px;
-            background: linear-gradient(135deg, var(--color-black) 0%, rgba(0,0,0,0.8) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content { z-index: 2; animation: fadeInUp 1.2s ease-out; }
-        .hero-accent {
-            width: 3px; height: 60px;
-            background: linear-gradient(180deg, var(--color-brown) 0%, transparent 100%);
-            margin: 0 auto 2rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            color: var(--color-cream);
-            margin-bottom: 1rem;
-            font-weight: 600;
-            letter-spacing: 0.03em;
-        }
-
-        .hero-tagline {
-            font-size: clamp(0.9rem, 2.5vw, 1.3rem);
-            color: rgba(245, 241, 232, 0.7);
-            font-weight: 300;
-            margin-bottom: 2rem;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .section { padding: 4rem 2rem; }
-        .section-white { background: #F8F5EE; }
-        .section-beige { background: var(--color-beige); }
-        .section-black { background: var(--color-black); }
-
-        .max-w-container { max-width: 90rem; margin: 0 auto; }
-
-        .section-title {
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            text-align: center;
-            margin-bottom: 0.5rem;
-            font-family: 'Lora', serif;
-            font-weight: 600;
-        }
-
-        .section-subtitle {
-            font-size: 1rem;
-            text-align: center;
-            color: var(--color-grey);
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 2.5rem 0;
-            gap: 1.5rem;
-            justify-content: center;
-        }
-
-        .divider::before, .divider::after {
-            content: '';
-            flex: 1;
-            max-width: 150px;
-            height: 1px;
-            background: var(--color-brown);
-        }
-
-        .divider-text {
-            font-size: 0.7rem;
-            color: var(--color-grey);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 500;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .card {
-            background: var(--color-black);
-            color: var(--color-cream);
-            padding: 2rem;
-            transition: all 0.3s;
-        }
-
-        .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            font-family: 'Lora', serif;
-            color: var(--color-cream);
-        }
-
-        .card p {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: rgba(245, 241, 232, 0.8);
-        }
-
-        .card-link {
-            display: flex;
-            align-items: center;
-            margin-top: 1.5rem;
-            color: var(--color-brown);
-            text-decoration: none;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            transition: all 0.3s;
-        }
-
-        .card-link::before {
-            content: '';
-            width: 3px;
-            height: 2px;
-            background: var(--color-brown);
-            margin-right: 0.75rem;
-        }
-
-        footer {
-            background: var(--color-black);
-            color: var(--color-cream);
-            padding: 3rem 2rem 1rem;
-        }
-
-        .footer-grid {
-            max-width: 90rem;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            font-size: 0.8rem;
-            color: var(--color-cream);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-family: 'Lora', serif;
-            font-weight: 600;
-        }
-
-        .footer-section p, .footer-section a {
-            font-size: 0.85rem;
-            line-height: 1.8;
-            color: rgba(245, 241, 232, 0.7);
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-
-        .footer-section a:hover { color: var(--color-brown); }
-        .footer-section ul { list-style: none; padding: 0; }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(139, 115, 85, 0.3);
-            padding-top: 1.5rem;
-            text-align: center;
-            font-size: 0.75rem;
-            color: rgba(245, 241, 232, 0.5);
-            max-width: 90rem;
-            margin: 0 auto;
-        }
-
-        .newsletter-form { margin-top: 1.5rem; }
-
-        .form-input {
-            appearance: none;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(245, 241, 232, 0.5);
-            color: var(--color-cream);
-            padding: 0.5rem 0;
-            width: 100%;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .form-input::placeholder { color: rgba(245, 241, 232, 0.5); }
-        .form-input:focus { outline: none; border-bottom-color: var(--color-brown); }
-
-        .form-submit {
-            display: flex;
-            align-items: center;
-            background: none;
-            border: none;
-            color: var(--color-cream);
-            cursor: pointer;
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            transition: color 0.2s;
-        }
-
-        .form-submit::before {
-            content: '';
-            width: 3px;
-            height: 2px;
-            background: var(--color-brown);
-            margin-right: 0.75rem;
-        }
-
-        .form-submit:hover { color: var(--color-brown); }
-
-        .grid-2col {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        @media (min-width: 768px) {
-            .grid-2col { grid-template-columns: 1fr 1fr; gap: 3rem; }
-        }
-
-        .aspect-video {
-            aspect-ratio: 16/9;
-            overflow: hidden;
-            background: var(--color-black);
-        }
-
-        .aspect-video img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* Placeholder image helper */
-        .img-placeholder {
-            width: 100%; height: 100%;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Lora', serif;
-            font-size: 1rem;
-            color: rgba(245,241,232,0.4);
-            letter-spacing: 0.05em;
-        }
-
-        /* Generate colored placeholder backgrounds */
-        .bg-forest { background: linear-gradient(135deg, #1a2e10 0%, #2d4a1e 50%, #1a2e10 100%); }
-        .bg-rock   { background: linear-gradient(135deg, #3a3028 0%, #5a4a3a 50%, #3a3028 100%); }
-        .bg-water  { background: linear-gradient(135deg, #102030 0%, #1a3a50 50%, #102030 100%); }
-        .bg-sunset { background: linear-gradient(135deg, #3a2010 0%, #5a3a1a 50%, #3a2010 100%); }
-        .bg-trail  { background: linear-gradient(135deg, #1e2a10 0%, #3a4a20 50%, #1e2a10 100%); }
-
-    </style>
-</head>
-<body>
-
-<!-- ═══ HEADER ══════════════════════════════════════════════════════════ -->
-<header>
-    <div class="header-content">
-        <a href="#" class="logo" onclick="showPage('home')">CANTOS DA MATA</a>
-
-        <nav class="nav-desktop">
-            <a href="#" onclick="showPage('home')" class="nav-item">Home</a>
-
-            <div class="nav-item submenu-trigger">
-                <span>O Propósito</span>
-                <div class="submenu">
-                    <a href="#" onclick="showPage('vision')">MANIFESTO</a>
-                    <a href="#" onclick="showPage('discovery')">DESCOBERTA</a>
-                    <a href="#" onclick="showPage('sustainability')">SUSTENTABILIDADE</a>
-                </div>
-            </div>
-
-            <div class="nav-item submenu-trigger">
-                <span>O Lodge</span>
-                <div class="submenu">
-                    <a href="#" onclick="showPage('accommodations')">ACOMODAÇÕES</a>
-                    <a href="#" onclick="showPage('areas')">AMBIENTES</a>
-                    <a href="#" onclick="showPage('dining')">GASTRONOMIA</a>
-                </div>
-            </div>
-
-            <a href="#" onclick="showPage('experiences')" class="nav-item">EXPERIÊNCIAS</a>
-            <a href="#" onclick="showPage('contact')" class="nav-item">CONTATO</a>
-            <a href="#" class="btn-header">Reservar</a>
-        </nav>
-
-        <button class="hamburger" id="hamburgerBtn">
-            <span></span><span></span><span></span>
-        </button>
-    </div>
-
-    <!-- Mobile Menu -->
-    <nav class="nav-mobile" id="navMobile">
-        <a href="#" onclick="showPage('home');closeMenu()" class="nav-mobile-item">Home</a>
-
-        <div class="nav-mobile-item" onclick="toggleSubmenu('purpose')">O Propósito ▼</div>
-        <div class="submenu-mobile" id="submenu-purpose">
-            <a href="#" onclick="showPage('vision');closeMenu()">Manifesto</a>
-            <a href="#" onclick="showPage('discovery');closeMenu()">Descoberta</a>
-            <a href="#" onclick="showPage('sustainability');closeMenu()">Sustentabilidade</a>
-        </div>
-
-        <div class="nav-mobile-item" onclick="toggleSubmenu('lodge')">O Lodge ▼</div>
-        <div class="submenu-mobile" id="submenu-lodge">
-            <a href="#" onclick="showPage('accommodations');closeMenu()">Acomodações</a>
-            <a href="#" onclick="showPage('areas');closeMenu()">Ambientes</a>
-            <a href="#" onclick="showPage('dining');closeMenu()">Gastronomia</a>
-        </div>
-
-        <a href="#" onclick="showPage('experiences');closeMenu()" class="nav-mobile-item">Experiências</a>
-        <a href="#" onclick="showPage('contact');closeMenu()" class="nav-mobile-item">Contato</a>
-        <a href="#" class="btn-header" style="margin: 1rem 1.5rem; display: block; text-align: center; width: calc(100% - 3rem);">Reservar</a>
-    </nav>
-</header>
-
-
-<!-- ═══ HOME PAGE ═══════════════════════════════════════════════════════ -->
-<div id="home" class="page active">
-
-    <!-- 1. HERO FULLSCREEN -->
-    <section class="home-hero">
-        <div class="home-hero-bg"></div>
-
-        <div class="home-hero-content">
-            <p class="home-hero-eyebrow">Chapada dos Guimarães · Mato Grosso</p>
-            <h1>Cantos da Mata</h1>
-            <p class="home-hero-tagline">Um Santuário na Chapada dos Guimarães</p>
-            <a href="#" onclick="showPage('contact')" class="home-hero-cta">Reservar Estadia</a>
-        </div>
-
-        <div class="home-hero-scroll">
-            <div class="scroll-line"></div>
-            <span>Descubra</span>
-        </div>
-    </section>
-
-    <!-- 2. LOGO INTERLUDE / INTRO -->
-    <section class="home-logo-interlude">
-        <p class="eyebrow">Bem-vindo ao Cantos da Mata</p>
-
-        <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg" style="max-width: 100px; height: auto; display: block; margin: 0 auto;">
-            <!-- Leaf / tree mark -->
-            <path d="M60 10 Q75 30 60 55 Q45 30 60 10Z" fill="none" stroke="#8B7355" stroke-width="1.5"/>
-            <path d="M45 35 Q60 45 75 35" fill="none" stroke="#8B7355" stroke-width="1"/>
-            <line x1="60" y1="55" x2="60" y2="70" stroke="#8B7355" stroke-width="1.5"/>
-        </svg>
-
-        <p>
-            Mais que uma pousada. Um convite para desacelerar, respirar fundo
-            e se reconectar com o que a natureza tem de mais puro.
-            Aqui, entre cerrado e mata, o tempo flui diferente.
-        </p>
-    </section>
-
-    <!-- 3. SPLIT: TEXTO + IMAGEM -->
-    <section class="home-intro">
-        <div class="home-intro-image bg-forest">
-            <div class="img-placeholder">Vista da Chapada</div>
-            <span class="home-intro-image-caption">Vista do Mirante · Chapada dos Guimarães</span>
-        </div>
-        <div class="home-intro-text">
-            <p class="eyebrow">Nossa Essência</p>
-            <h2>Entre o céu e a floresta</h2>
-            <p>
-                Cantos da Mata nasceu do desejo de criar um espaço onde a natureza
-                não é apenas cenário — ela é protagonista. Cada detalhe do lodge foi
-                pensado para mínimizar o impacto e maximizar a experiência.
-            </p>
-            <p>
-                Localizado em Chapada dos Guimarães, um dos biomas mais biodiversos
-                do planeta, somos um ponto de encontro entre o viajante curioso
-                e a sabedoria da terra.
-            </p>
-            <a href="#" onclick="showPage('vision')" class="link-arrow">Conheça nosso manifesto</a>
-        </div>
-    </section>
-
-    <!-- 4. HIGHLIGHTS (3-col imersivo) -->
-    <section class="home-highlights">
-        <div class="home-highlights-header">
-            <p class="eyebrow">Por que Cantos da Mata</p>
-            <h2>Três razões para vir</h2>
-        </div>
-
-        <div class="highlights-grid">
-
-            <div class="highlight-item">
-                <div class="highlight-item-bg bg-forest"></div>
-                <div class="highlight-item-overlay"></div>
-                <div class="highlight-item-content">
-                    <p class="highlight-item-number">01</p>
-                    <h3>Natureza Pura</h3>
-                    <p>Cachoeiras cristalinas, trilhas entre cerrado e mata atlântica, fauna exuberante a poucos passos da sua acomodação.</p>
-                    <a href="#" onclick="showPage('experiences')" class="highlight-item-link">Explorar experiências →</a>
-                </div>
-            </div>
-
-            <div class="highlight-item">
-                <div class="highlight-item-bg bg-rock"></div>
-                <div class="highlight-item-overlay"></div>
-                <div class="highlight-item-content">
-                    <p class="highlight-item-number">02</p>
-                    <h3>Desaceleração</h3>
-                    <p>Sem sinal, sem pressa. Um espaço projetado para que você se reconecte com o ritmo da natureza e com você mesmo.</p>
-                    <a href="#" onclick="showPage('areas')" class="highlight-item-link">Ver ambientes →</a>
-                </div>
-            </div>
-
-            <div class="highlight-item">
-                <div class="highlight-item-bg bg-water"></div>
-                <div class="highlight-item-overlay"></div>
-                <div class="highlight-item-content">
-                    <p class="highlight-item-number">03</p>
-                    <h3>Luxo Responsável</h3>
-                    <p>Energia solar, materiais locais, zero desperdício. Conforto e sofisticação em harmonia com o meio ambiente.</p>
-                    <a href="#" onclick="showPage('sustainability')" class="highlight-item-link">Sustentabilidade →</a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- 5. EXPERIÊNCIAS -->
-    <section class="home-experiences">
-        <div class="home-experiences-inner">
-            <div class="home-experiences-header">
-                <div>
-                    <p class="eyebrow">O que nos espera</p>
-                    <h2>Experiências</h2>
-                </div>
-                <a href="#" onclick="showPage('experiences')" class="link-arrow" style="color: var(--color-brown-dark);">Ver todas as experiências</a>
-            </div>
-
-            <div class="experiences-scroll">
-
-                <div class="exp-card">
-                    <div class="exp-card-image bg-water">
-                        <div class="img-placeholder">Cachoeiras</div>
-                    </div>
-                    <div class="exp-card-body">
-                        <h3>Circuitos de Cachoeiras</h3>
-                        <p>Mergulhe nas águas cristalinas de Véu de Noiva, Bailarina e Tartaruga — um espetáculo natural a cada curva.</p>
-                        <a href="#" onclick="showPage('experiences')" class="exp-card-link">Saiba mais</a>
-                    </div>
-                </div>
-
-                <div class="exp-card">
-                    <div class="exp-card-image bg-trail">
-                        <div class="img-placeholder">Birdwatching</div>
-                    </div>
-                    <div class="exp-card-body">
-                        <h3>Birdwatching</h3>
-                        <p>Mais de 600 espécies de aves. Com guias especializados, cada trilha é uma descoberta única ao amanhecer.</p>
-                        <a href="#" onclick="showPage('experiences')" class="exp-card-link">Saiba mais</a>
-                    </div>
-                </div>
-
-                <div class="exp-card">
-                    <div class="exp-card-image bg-sunset">
-                        <div class="img-placeholder">Mirantes</div>
-                    </div>
-                    <div class="exp-card-body">
-                        <h3>Mirantes ao Pôr do Sol</h3>
-                        <p>O Centro Geodésico da América do Sul como palco para os mais belos entardeceres da sua vida.</p>
-                        <a href="#" onclick="showPage('experiences')" class="exp-card-link">Saiba mais</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- 10. DEPOIMENTOS (scroll horizontal) -->
-    <section class="home-testimonials">
-        <div class="home-testimonials-inner">
-            <div class="home-testimonials-header">
-                <p class="eyebrow">O que dizem nossos hóspedes</p>
-                <h2>Experiências vividas</h2>
-            </div>
-
-            <div class="testimonials-scroll-track">
-
-                <div class="testimonial-item">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">
-                        "Uma semana em Cantos da Mata transformou minha percepção de mundo. O contato com a natureza, os guias incríveis e o equilíbrio entre conforto e autenticidade criaram momentos que jamais vou esquecer."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">M</div>
-                        <div>
-                            <div class="testimonial-author-name">Maria Santos</div>
-                            <div class="testimonial-author-origin">São Paulo, Brasil</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-item">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">
-                        "Procurava um lugar onde pudesse desacelerar sem perder o conforto. Cantos da Mata entrega exatamente isso. As cachoeiras são espetaculares, a equipe é atenciosa e a comida é incrível."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">C</div>
-                        <div>
-                            <div class="testimonial-author-name">Carlos Mendes</div>
-                            <div class="testimonial-author-origin">Belo Horizonte, Brasil</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-item">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">
-                        "Jamais imaginei que um lugar pudesse me fazer esquecer completamente do tempo. A Casa de Pedra é simplesmente mágica — cada amanhecer ali é uma obra de arte."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">A</div>
-                        <div>
-                            <div class="testimonial-author-name">Ana Luiza Rocha</div>
-                            <div class="testimonial-author-origin">Cuiabá, Brasil</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-item">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <p class="testimonial-text">
-                        "A experiência de birdwatching com guia local foi transformadora. Vi espécies que nunca imaginei ver na vida. O lodge combina perfeitamente aventura e descanso."
-                    </p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">R</div>
-                        <div>
-                            <div class="testimonial-author-name">Roberto Figueiredo</div>
-                            <div class="testimonial-author-origin">Porto Alegre, Brasil</div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- 11. GALERIA (após depoimentos) -->
-    <section class="home-gallery">
-        <div class="home-gallery-header">
-            <p class="eyebrow">Uma janela para a mata</p>
-            <h2>O lodge em imagens</h2>
-        </div>
-
-        <div class="gallery-strip">
-            <div class="gallery-cell">
-                <div class="gallery-cell-bg bg-forest"></div>
-                <span class="gallery-cell-label">Vista Geral</span>
-            </div>
-            <div class="gallery-cell">
-                <div class="gallery-cell-bg bg-water"></div>
-                <span class="gallery-cell-label">Lagoa</span>
-            </div>
-            <div class="gallery-cell">
-                <div class="gallery-cell-bg bg-rock"></div>
-                <span class="gallery-cell-label">Trilhas</span>
-            </div>
-            <div class="gallery-cell">
-                <div class="gallery-cell-bg bg-sunset"></div>
-                <span class="gallery-cell-label">Pôr do Sol</span>
-            </div>
-        </div>
-    </section>
-    <section class="home-quote">
-        <blockquote>
-            "Aqui você não é apenas um hóspede, mas um explorador. Cada amanhecer no mirante, cada cascata descoberta, cada noite ao redor da fogueira."
-            <cite>— Cantos da Mata</cite>
-        </blockquote>
-    </section>
-
-    <!-- 8. ACOMODAÇÕES PREVIEW -->
-    <section class="home-accommodations">
-        <div class="home-accommodations-inner">
-            <div class="home-accommodations-header">
-                <p class="eyebrow">Onde você vai descansar</p>
-                <h2>Nossas Acomodações</h2>
-            </div>
-
-            <div class="accommodations-list">
-
-                <div class="accom-row">
-                    <div class="accom-image bg-forest">
-                        <div class="accom-image-inner bg-forest"></div>
-                    </div>
-                    <div class="accom-text">
-                        <p class="eyebrow">Acomodação · 01</p>
-                        <h3>Casa Caracol</h3>
-                        <p>
-                            Espiral de conforto em perfeita harmonia com a natureza.
-                            Design orgânico pensado para oferecer privacidade total
-                            e contemplação da mata ao redor.
-                        </p>
-                        <a href="#" onclick="showPage('accommodations')" class="link-arrow">Ver detalhes</a>
-                    </div>
-                </div>
-
-                <div class="accom-row">
-                    <div class="accom-image">
-                        <div class="accom-image-inner bg-trail"></div>
-                    </div>
-                    <div class="accom-text">
-                        <p class="eyebrow">Acomodação · 02</p>
-                        <h3>Casinha na Mata</h3>
-                        <p>
-                            Imerso na floresta, com vistas privilegiadas e acesso
-                            direto às trilhas. Conforto rústico sofisticado para
-                            quem quer viver a natureza de dentro para fora.
-                        </p>
-                        <a href="#" onclick="showPage('accommodations')" class="link-arrow">Ver detalhes</a>
-                    </div>
-                </div>
-
-                <div class="accom-row">
-                    <div class="accom-image">
-                        <div class="accom-image-inner bg-rock"></div>
-                    </div>
-                    <div class="accom-text">
-                        <p class="eyebrow">Acomodação · 03</p>
-                        <h3>Esconderijo</h3>
-                        <p>
-                            Seu refúgio privado para solitude e introspecção.
-                            Localização estratégica para contemplação profunda
-                            do horizonte da Chapada.
-                        </p>
-                        <a href="#" onclick="showPage('accommodations')" class="link-arrow">Ver detalhes</a>
-                    </div>
-                </div>
-
-                <div class="accom-row">
-                    <div class="accom-image bg-trail">
-                        <div class="accom-image-inner bg-trail"></div>
-                    </div>
-                    <div class="accom-text">
-                        <p class="eyebrow">Acomodação · 04</p>
-                        <h3>Abrigo na Mata</h3>
-                        <p>
-                            Uma cabana integrada à vegetação nativa, onde o
-                            canto dos pássaros e o sussurro das folhas são a
-                            trilha sonora do seu despertar. Simplicidade elevada ao máximo.
-                        </p>
-                        <a href="#" onclick="showPage('accommodations')" class="link-arrow">Ver detalhes</a>
-                    </div>
-                </div>
-
-                <div class="accom-row">
-                    <div class="accom-image">
-                        <div class="accom-image-inner bg-rock" style="background: linear-gradient(135deg, #2a2018 0%, #4a3828 50%, #2a2018 100%);"></div>
-                    </div>
-                    <div class="accom-text">
-                        <p class="eyebrow">Acomodação · 05</p>
-                        <h3>Casa de Pedra</h3>
-                        <p>
-                            Construída em harmonia com a rocha viva da Chapada,
-                            esta acomodação única celebra a geologia do cerrado.
-                            Frescor natural, texturas brutas, elegância atemporal.
-                        </p>
-                        <a href="#" onclick="showPage('accommodations')" class="link-arrow">Ver detalhes</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- 9. SUSTENTABILIDADE -->
-    <section class="home-sustainability">
-        <div class="home-sustainability-inner">
-            <div class="sustainability-text">
-                <p class="eyebrow">Nosso Compromisso</p>
-                <h2>Luxo que respeita a terra</h2>
-                <p>
-                    Cada decisão em Cantos da Mata passa por um filtro:
-                    isso respeita o lugar onde estamos? Energia solar,
-                    construções ecológicas, materiais locais e práticas
-                    que devolvem à natureza mais do que tomam.
-                </p>
-                <p>
-                    Não viemos aqui para conquistar a natureza — viemos para celebrá-la.
-                </p>
-                <a href="#" onclick="showPage('sustainability')" class="link-arrow" style="color: var(--color-brown-dark);">Saiba mais sobre sustentabilidade</a>
-            </div>
-
-            <div class="sustainability-stats">
-                <div class="stat-item">
-                    <div class="stat-number">100%</div>
-                    <div class="stat-label">Energia Solar</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">0</div>
-                    <div class="stat-label">Plástico de uso único</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">+50</div>
-                    <div class="stat-label">Espécies nativas replantadas</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">Local</div>
-                    <div class="stat-label">100% dos materiais de construção</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 12. CTA FINAL -->
-    <section class="home-cta-final">
-        <div class="home-cta-final-inner">
-            <p class="eyebrow">Pronto para vir?</p>
-            <h2>Sua estadia começa aqui</h2>
-            <p>Consulte disponibilidade e planeje sua experiência na Chapada dos Guimarães.</p>
-            <div class="cta-buttons">
-                <a href="#" onclick="showPage('contact')" class="btn-primary">Fazer Reserva</a>
-                <a href="#" onclick="showPage('accommodations')" class="btn-outline">Ver Acomodações</a>
-            </div>
-        </div>
-    </section>
-
-</div><!-- end #home -->
-
-
-<!-- ═══ VISION PAGE ══════════════════════════════════════════════════════ -->
-<div id="vision" class="page">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Nossa Visão</h1>
-            <p class="hero-tagline">Um refúgio na natureza para restaurar corpo, mente e espírito</p>
-        </div>
-    </section>
-
-    <section class="section section-white">
-        <div class="max-w-container">
-            <div class="grid-2col">
-                <div>
-                    <h2 style="font-size: 2rem; margin-bottom: 1.5rem; font-family: 'Lora', serif;">Nosso Manifesto</h2>
-                    <p style="color: var(--color-brown); line-height: 1.8; margin-bottom: 1.5rem;">
-                        Cantos da Mata existe para oferecer uma experiência autêntica e transformadora na Chapada dos Guimarães. Acreditamos que a verdadeira hospitalidade está em harmonizar conforto com responsabilidade ambiental.
-                    </p>
-                    <p style="color: var(--color-brown); line-height: 1.8;">
-                        Cada detalhe foi pensado para minimizar impacto e maximizar conexão. Não viemos aqui para conquistar a natureza, mas para celebrá-la.
-                    </p>
-                </div>
-                <div class="aspect-video bg-forest">
-                    <div class="img-placeholder">Manifesto</div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ═══ DISCOVERY PAGE ═══════════════════════════════════════════════════ -->
-<div id="discovery" class="page">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Descoberta</h1>
-            <p class="hero-tagline">Uma jornada de transformação pessoal</p>
-        </div>
-    </section>
-
-    <section class="section section-white">
-        <div class="max-w-container">
-            <h2 class="section-title">Transformação</h2>
-            <p class="section-subtitle">Cada momento em Cantos da Mata é uma oportunidade de descoberta</p>
-
-            <div class="cards-grid">
-                <div class="card">
-                    <h3>Amanhecer</h3>
-                    <p>Veja o nascer do sol do Centro Geodésico da América do Sul, onde os meridianos convergem em harmonia com a natureza.</p>
-                    <a href="#" class="card-link">Explorar</a>
-                </div>
-                <div class="card">
-                    <h3>Cachoeiras</h3>
-                    <p>Mergulhe em águas cristalinas de cachoeiras intocadas. Véu de Noiva, Bailarina, Tartaruga - natureza em seu esplendor.</p>
-                    <a href="#" class="card-link">Descobrir</a>
-                </div>
-                <div class="card">
-                    <h3>Noites Mágicas</h3>
-                    <p>Fogueira sob as estrelas, histórias locais, contemplação. Reconecte-se com o essencial da vida e do ser.</p>
-                    <a href="#" class="card-link">Vivenciar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ═══ EXPERIENCES PAGE ══════════════════════════════════════════════════ -->
-<div id="experiences" class="page">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Experiências</h1>
-            <p class="hero-tagline">Momentos que transformam</p>
-        </div>
-    </section>
-
-    <section class="section section-white">
-        <div class="max-w-container">
-            <div class="divider"><span class="divider-text">Explore</span></div>
-            <div class="cards-grid">
-                <div class="card">
-                    <h3>Trilhas de Floresta</h3>
-                    <p>Caminhe com guias especializados através de trilhas que revelam a biodiversidade da Chapada em toda sua riqueza.</p>
-                    <a href="#" class="card-link">Saiba Mais</a>
-                </div>
-                <div class="card">
-                    <h3>Birdwatching</h3>
-                    <p>Observe mais de 600 espécies de aves. Trilhas especializadas para ornitólogos e curiosos pela natureza.</p>
-                    <a href="#" class="card-link">Saiba Mais</a>
-                </div>
-                <div class="card">
-                    <h3>Cavernas Ancestrais</h3>
-                    <p>Explore Aroejari e Geladeira. Formações geológicas impressionantes e temperatura natural refrescante.</p>
-                    <a href="#" class="card-link">Saiba Mais</a>
-                </div>
-            </div>
-            <div class="cards-grid" style="margin-top: 2rem;">
-                <div class="card">
-                    <h3>Lagoa Azul</h3>
-                    <p>Águas cristalinas que mudam de cor conforme a luz solar. Um espetáculo natural de beleza indescritível.</p>
-                    <a href="#" class="card-link">Explorar</a>
-                </div>
-                <div class="card">
-                    <h3>Circuitos Aquáticos</h3>
-                    <p>Sete Cachoeiras, Cachoeira dos Namorados. Passeios em águas limpas cercadas de floresta virgem.</p>
-                    <a href="#" class="card-link">Descobrir</a>
-                </div>
-                <div class="card">
-                    <h3>Mirantes Naturais</h3>
-                    <p>Pontos de observação estratégicos para admirar o pôr do sol sobre a Chapada dos Guimarães.</p>
-                    <a href="#" class="card-link">Vivenciar</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ═══ ACCOMMODATIONS PAGE ══════════════════════════════════════════════ -->
-<div id="accommodations" class="page">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Acomodações</h1>
-            <p class="hero-tagline">Cada refúgio é uma obra-prima</p>
-        </div>
-    </section>
-
-    <section class="section section-white">
-        <div class="max-w-container">
-            <h2 class="section-title">Nossas Casas</h2>
-
-            <div class="grid-2col" style="margin-top: 3rem;">
-                <div class="aspect-video bg-forest"><div class="img-placeholder">Casa Caracol</div></div>
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-family: 'Lora', serif;">Casa Caracol</h3>
-                    <p style="color: var(--color-brown); line-height: 1.8; margin-bottom: 1rem;">Espiral de conforto em perfeita harmonia com a natureza. Design pensado para oferecer privacidade e contemplação.</p>
-                </div>
-            </div>
-
-            <div class="grid-2col" style="margin-top: 3rem;">
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-family: 'Lora', serif;">Casinha na Mata</h3>
-                    <p style="color: var(--color-brown); line-height: 1.8; margin-bottom: 1rem;">Imerso na floresta, oferecendo vistas privilegiadas e acesso direto às trilhas locais. Conforto rústico sofisticado.</p>
-                </div>
-                <div class="aspect-video bg-trail"><div class="img-placeholder">Casinha na Mata</div></div>
-            </div>
-
-            <div class="grid-2col" style="margin-top: 3rem;">
-                <div class="aspect-video bg-rock"><div class="img-placeholder">Esconderijo</div></div>
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-family: 'Lora', serif;">Esconderijo</h3>
-                    <p style="color: var(--color-brown); line-height: 1.8; margin-bottom: 1rem;">Seu refúgio privado para solitude e introspecção. Localização estratégica para contemplação profunda.</p>
-                </div>
-            </div>
-
-            <div class="grid-2col" style="margin-top: 3rem;">
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-family: 'Lora', serif;">Abrigo na Mata</h3>
-                    <p style="color: var(--color-brown); line-height: 1.8; margin-bottom: 1rem;">Uma cabana integrada à vegetação nativa, onde o canto dos pássaros e o sussurro das folhas são a trilha sonora do seu despertar. Simplicidade elevada ao máximo.</p>
-                </div>
-                <div class="aspect-video bg-trail"><div class="img-placeholder">Abrigo na Mata</div></div>
-            </div>
-
-            <div class="grid-2col" style="margin-top: 3rem;">
-                <div class="aspect-video" style="background: linear-gradient(135deg, #2a2018 0%, #4a3828 50%, #2a2018 100%);"><div class="img-placeholder">Casa de Pedra</div></div>
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-family: 'Lora', serif;">Casa de Pedra</h3>
-                    <p style="color: var(--color-brown); line-height: 1.8; margin-bottom: 1rem;">Construída em harmonia com a rocha viva da Chapada, esta acomodação única celebra a geologia do cerrado. Frescor natural, texturas brutas, elegância atemporal.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ═══ AREAS PAGE ═══════════════════════════════════════════════════════ -->
-<div id="areas" class="page">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Ambientes</h1>
-            <p class="hero-tagline">Espaços criados para reconectar</p>
-        </div>
-    </section>
-
-    <section class="section section-white">
-        <div class="max-w-container">
-            <h2 class="section-title">Nossas Áreas</h2>
-            <div class="cards-grid">
-                <div class="card">
-                    <h3>Deck de Contemplação</h3>
-                    <p>Suspensa sobre a floresta, nossa área de contemplação oferece vista panorâmica da Chapada e céu aberto à noite.</p>
-                    <a href="#" class="card-link">Explorar</a>
-                </div>
-                <div class="card">
-                    <h3>Piscina Natural</h3>
-                    <p>Integrada à paisagem, nossa piscina segue o contorno da rocha e se mescla harmoniosamente com o verde ao redor.</p>
-                    <a href="#" class="card-link">Descobrir</a>
-                </div>
-                <div class="card">
-                    <h3>Área de Fogueira</h3>
-                    <p>Sob as estrelas da Chapada, nossa área de fogueira é palco de conversas, músicas e reconexão verdadeira.</p>
-                    <a href="#" class="card-link">Conhecer</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ═══ DINING PAGE ═══════════════════════════════════════════════════════ -->
-<div id="dining" class="page">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Gastronomia</h1>
-            <p class="hero-tagline">Sabores da floresta</p>
-        </div>
-    </section>
-
-    <section class="section section-white">
-        <div class="max-w-container">
-            <h2 class="section-title">Experiência Culinária</h2>
-
-            <div class="grid-2col" style="margin-top: 3rem;">
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-family: 'Lora', serif;">Restaurante</h3>
-                    <p style="color: var(--color-brown); line-height: 1.8; margin-bottom: 1rem;">Pratos preparados com ingredientes locais e técnicas modernas. Cada refeição é uma celebração da biodiversidade da Chapada.</p>
-                </div>
-                <div class="aspect-video bg-sunset"><div class="img-placeholder">Restaurante</div></div>
-            </div>
-
-            <div class="grid-2col" style="margin-top: 3rem;">
-                <div class="aspect-video bg-forest"><div class="img-placeholder">Bar da Piscina</div></div>
-                <div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; font-family: 'Lora', serif;">Bar da Piscina</h3>
-                    <p style="color: var(--color-brown); line-height: 1.8; margin-bottom: 1rem;">Drinks artesanais, coquetéis refrescantes e petiscos. O lugar perfeito para desacelerar ao entardecer imerso na natureza.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ═══ SUSTAINABILITY PAGE ══════════════════════════════════════════════ -->
-<div id="sustainability" class="page">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Sustentabilidade</h1>
-            <p class="hero-tagline">Luxo responsável</p>
-        </div>
-    </section>
-
-    <section class="section section-white">
-        <div class="max-w-container">
-            <h2 class="section-title">Nosso Compromisso</h2>
-            <div class="cards-grid" style="margin-top: 3rem;">
-                <div class="card">
-                    <h3>Energia Solar</h3>
-                    <p>100% de nossas operações utilizam energia solar. Tecnologia moderna aliada ao compromisso com a preservação ambiental.</p>
-                    <a href="#" class="card-link">Saiba Mais</a>
-                </div>
-                <div class="card">
-                    <h3>Construções Ecológicas</h3>
-                    <p>Cada estrutura foi pensada para minimizar impacto ambiental, integrando-se harmoniosamente à paisagem natural.</p>
-                    <a href="#" class="card-link">Saiba Mais</a>
-                </div>
-                <div class="card">
-                    <h3>Materiais Locais</h3>
-                    <p>Utilização de recursos locais e construção que respeita o entorno, mantendo a integridade do ecossistema da Chapada.</p>
-                    <a href="#" class="card-link">Saiba Mais</a>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ═══ CONTACT PAGE ═════════════════════════════════════════════════════ -->
-<div id="contact" class="page">
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Entre em Contato</h1>
-            <p class="hero-tagline">Estamos prontos para recebê-lo</p>
-        </div>
-    </section>
-
-    <section class="section section-white">
-        <div class="max-w-container">
-            <div style="max-width: 600px; margin: 0 auto;">
-                <form onsubmit="handleSubmit(event)">
-                    <div class="grid-2col">
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; color: var(--color-brown); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;">Nome</label>
-                            <input type="text" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-brown); background: transparent; color: var(--color-black); font-family: 'Inter', sans-serif;">
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem; color: var(--color-brown); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;">Email</label>
-                            <input type="email" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-brown); background: transparent; color: var(--color-black); font-family: 'Inter', sans-serif;">
-                        </div>
-                    </div>
-                    <div style="margin-top: 1.5rem;">
-                        <label style="display: block; margin-bottom: 0.5rem; color: var(--color-brown); font-weight: 600; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase;">Mensagem</label>
-                        <textarea required style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-brown); background: transparent; color: var(--color-black); font-family: 'Inter', sans-serif; min-height: 120px;"></textarea>
-                    </div>
-                    <button type="submit" style="margin-top: 2rem; padding: 0.75rem 2rem; background: var(--color-brown); color: var(--color-cream); border: none; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;">Enviar</button>
-                </form>
-            </div>
-
-            <div class="divider" style="margin-top: 3rem;"><span class="divider-text">Localização</span></div>
-
-            <div style="text-align: center; margin-top: 2rem;">
-                <p style="color: var(--color-brown-dark); font-weight: 600; margin-bottom: 0.5rem;">Chapada dos Guimarães, Cuiabá - MT</p>
-                <p style="color: var(--color-brown);">Entre a floresta e o céu, esperamos por você.</p>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ═══ FOOTER ═══════════════════════════════════════════════════════════ -->
-<footer>
-    <div class="footer-grid">
-        <div class="footer-section">
-            <h4>Sobre</h4>
-            <p>Cantos da Mata é mais que uma pousada. É um convite para desacelerar, respirar e renascer na natureza de Chapada dos Guimarães.</p>
-        </div>
-        <div class="footer-section">
-            <h4>Amigos do Cantos</h4>
-            <form class="newsletter-form" onsubmit="handleNewsletter(event)">
-                <input type="text" placeholder="Seu nome" class="form-input" required>
-                <input type="email" placeholder="Seu email" class="form-input" required>
-                <button type="submit" class="form-submit">Enviar</button>
-            </form>
-        </div>
-        <div class="footer-section">
-            <h4>Contato</h4>
-            <ul>
-                <li><a href="/cdn-cgi/l/email-protection#8be8e4e5ffeaffe4cbe8eae5ffe4f8efeae6eaffeaa5e8e4e6a5e9f9"><span class="__cf_email__" data-cfemail="7a1915140e1b0e153a191b140e15091e1b171b0e1b54191517541808">[email&#160;protected]</span></a></li>
-                <li><a href="tel:+556533221000">(65) 3322-1000</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">Facebook</a></li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h4>Localização</h4>
-            <p>Cantos da Mata<br>Chapada dos Guimarães<br>Cuiabá - MT<br>Brasil</p>
-        </div>
-    </div>
-
-    <div class="footer-bottom">
-        © 2024 Cantos da Mata. Todos os direitos reservados.
-    </div>
-</footer>
-
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    // Mobile menu
-    const hamburger = document.getElementById('hamburgerBtn');
-    const navMobile = document.getElementById('navMobile');
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMobile.classList.toggle('active');
-    });
-
-    function closeMenu() {
-        hamburger.classList.remove('active');
-        navMobile.classList.remove('active');
-    }
-
-    function toggleSubmenu(id) {
-        const submenu = document.getElementById(`submenu-${id}`);
-        submenu.classList.toggle('active');
-    }
-
-    // Page navigation
-    function showPage(pageId) {
-        document.querySelectorAll('.page').forEach(page => {
-            page.classList.remove('active');
-        });
-        document.getElementById(pageId).classList.add('active');
-        window.scrollTo(0, 0);
-    }
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        alert('Obrigado! Sua mensagem foi enviada. Entraremos em contato em breve.');
-    }
-
-    function handleNewsletter(e) {
-        e.preventDefault();
-        alert('Obrigado por se inscrever nos Amigos do Cantos!');
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cantos da Mata · Pousada na Chapada dos Guimarães — MT</title>
+<meta name="description" content="Pousada Cantos da Mata: um santuário na Chapada dos Guimarães, MT. Chalés imersos na natureza, passeios às cachoeiras e cavernas, café da manhã incluso. Reserve pelo WhatsApp.">
+<meta name="theme-color" content="#0d0d0c">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cantos da Mata · Pousada na Chapada dos Guimarães">
+<meta property="og:description" content="Um santuário na Chapada dos Guimarães. Chalés na mata, cachoeiras e cavernas, café da manhã incluso.">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://cantosdamata.com/">
+<meta property="og:image" content="https://cantosdamata.com/assets/images/areas/areas-01-1600.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://cantosdamata.com/">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  "name": "Pousada Cantos da Mata",
+  "description": "Pousada na Chapada dos Guimarães, MT. Chalés imersos na mata, passeios às cachoeiras e cavernas, café da manhã incluso.",
+  "url": "https://cantosdamata.com/",
+  "telephone": "+5565998019517",
+  "email": "info@cantosdamata.com",
+  "address": { "@type": "PostalAddress", "streetAddress": "Vale do Jamacá", "postalCode": "78195-000", "addressLocality": "Chapada dos Guimarães", "addressRegion": "MT", "addressCountry": "BR" },
+  "areaServed": "Chapada dos Guimarães",
+  "priceRange": "$$",
+  "checkinTime": "13:00",
+  "checkoutTime": "11:00",
+  "knowsLanguage": ["pt-BR", "en", "de"]
+}
 </script>
 
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 3 C22 11 22 22 16 29 C10 22 10 11 16 3 Z' fill='%236b8e23'/><line x1='16' y1='10' x2='16' y2='27' stroke='%2316301f' stroke-width='1.4'/></svg>">
+
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="no-anim">
+<a class="skip-link" href="#main">Pular para o conteúdo</a>
+<div id="routeStatus" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+<!-- ═══ ICON SPRITE (inline, file://-safe) ═══════════════════════════ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-leaf" viewBox="0 0 32 32"><path d="M16 3 C22 11 22 22 16 29 C10 22 10 11 16 3 Z" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="16" y1="9" x2="16" y2="27" stroke="currentColor" stroke-width="1.2"/><path d="M16 15 Q11 14 8 11 M16 19 Q21 18 24 15" fill="none" stroke="currentColor" stroke-width="1"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 L9 17 l-5 -5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 2 C8 2 5 5 5 9 c0 5 7 13 7 13 s7 -8 7 -13 c0 -4 -3 -7 -7 -7 Z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9" r="2.4" fill="currentColor"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 3 h3 l2 5 -2.5 1.5 a11 11 0 0 0 5 5 L21 16 v3 a2 2 0 0 1 -2 2 A16 16 0 0 1 3 5 a2 2 0 0 1 2 -2 Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 6.5 L12 13 l8.5 -6.5" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7 v5 l3.5 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M4 9 h14 v4 a5 5 0 0 1 -5 5 H9 a5 5 0 0 1 -5 -5 Z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M18 10 h2.5 a2.5 2.5 0 0 1 0 5 H18" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 3 v2 M12 3 v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-whats" viewBox="0 0 32 32"><path fill="currentColor" d="M16 3a13 13 0 0 0-11 19.7L3 29l6.5-1.9A13 13 0 1 0 16 3Zm0 23.6a10.5 10.5 0 0 1-5.4-1.5l-.4-.2-4 1.1 1.1-3.9-.3-.4A10.6 10.6 0 1 1 16 26.6Zm5.9-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.3-.7.1a8.6 8.6 0 0 1-2.5-1.6 9.5 9.5 0 0 1-1.8-2.2c-.2-.3 0-.5.1-.7l.5-.6a2 2 0 0 0 .3-.6.6.6 0 0 0 0-.6c0-.2-.7-1.7-1-2.3s-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c.8.3 1.4.5 1.9.7a4.5 4.5 0 0 0 2 .1 3.3 3.3 0 0 0 2.2-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4Z"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-facebook" viewBox="0 0 24 24"><path fill="currentColor" d="M14 8.5V6.8c0-.8.2-1.3 1.4-1.3H17V2.6h-2.6c-3 0-4 1.6-4 3.9v2H8.4v3h2V22h3.4v-10.5h2.6l.4-3H14Z"/></symbol>
+  <symbol id="i-paw" viewBox="0 0 24 24"><ellipse cx="12" cy="16" rx="4.5" ry="3.6" fill="currentColor"/><circle cx="6" cy="11" r="1.9" fill="currentColor"/><circle cx="10" cy="7.5" r="1.9" fill="currentColor"/><circle cx="14" cy="7.5" r="1.9" fill="currentColor"/><circle cx="18" cy="11" r="1.9" fill="currentColor"/></symbol>
+  <!-- capuchin monkey (macaco-prego) silhouette, hanging -->
+  <symbol id="i-monkey" viewBox="0 0 100 150">
+    <g fill="currentColor">
+      <path d="M50 8 c-3 -6 -14 -7 -14 2 c-7 2 -10 9 -8 15 c-4 4 -4 12 1 16 c3 9 12 14 21 14 c9 0 18 -5 21 -14 c5 -4 5 -12 1 -16 c2 -6 -1 -13 -8 -15 c0 -9 -11 -8 -15 -2 Z"/>
+      <ellipse cx="50" cy="42" rx="14" ry="11" fill="#0d0d0c" opacity="0.0"/>
+      <path d="M40 52 c-8 3 -13 12 -13 24 c0 16 8 30 23 30 c15 0 23 -14 23 -30 c0 -12 -5 -21 -13 -24 c-2 8 -18 8 -20 0 Z"/>
+      <path d="M37 60 c-10 -2 -20 -10 -26 -3 c-5 6 4 12 12 12 c6 0 12 -3 16 -5 Z"/>
+      <path d="M71 104 c10 6 18 16 12 30 c-5 12 -22 12 -22 0 c0 -8 4 -10 4 -16 c0 -6 -2 -10 6 -14 Z"/>
+      <ellipse cx="44" cy="118" rx="5" ry="9" transform="rotate(12 44 118)"/>
+      <ellipse cx="57" cy="118" rx="5" ry="9" transform="rotate(-12 57 118)"/>
+    </g>
+    <circle cx="44" cy="40" r="2.2" fill="#0d0d0c"/><circle cx="56" cy="40" r="2.2" fill="#0d0d0c"/>
+  </symbol>
+  <symbol id="i-canopy" viewBox="0 0 1200 80" preserveAspectRatio="none">
+    <path d="M0 80 V40 q30 -28 60 -2 q24 -30 52 -6 q28 -32 60 -4 q30 -26 58 0 q26 -30 56 -4 q30 -28 60 -2 q28 -30 58 -4 q30 -26 60 0 q26 -30 56 -2 q30 -28 60 -2 q28 -30 58 -4 q30 -26 60 0 q26 -28 56 -2 q30 -26 60 0 q28 -28 58 -2 q30 -24 60 2 V80 Z" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ HEADER ═══════════════════════════════════════════════════════ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#home" class="brand">
+      <svg class="brand-leaf" style="color:var(--green-leaf)"><use href="#i-leaf"/></svg>
+      <span class="brand-name">Cantos da Mata<small>Chapada dos Guimarães</small></span>
+    </a>
+
+    <nav class="nav">
+      <a href="#home" class="nav-link" data-nav="home">Início</a>
+      <div class="has-drop">
+        <a href="#sobre" class="nav-link" data-nav="sobre">A Pousada</a>
+        <div class="drop">
+          <a href="#sobre">Nossa essência</a>
+          <a href="#sobre-sustentabilidade">Sustentabilidade</a>
+          <a href="#contato-infos">Informações úteis</a>
+        </div>
+      </div>
+      <div class="has-drop">
+        <a href="#chales" class="nav-link" data-nav="chales">Chalés</a>
+        <div class="drop" id="dropChales"></div>
+      </div>
+      <a href="#passeios" class="nav-link" data-nav="passeios">Passeios</a>
+      <a href="#gastronomia" class="nav-link" data-nav="gastronomia">Gastronomia</a>
+      <a href="#galeria" class="nav-link" data-nav="galeria">Galeria</a>
+      <a href="#contato" class="nav-link" data-nav="contato">Contato</a>
+      <a class="btn btn--whats nav-cta" data-whats><svg><use href="#i-whats"/></svg>Reservar</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- mobile drawer -->
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#home" class="m-link" data-close>Início</a>
+  <button type="button" class="m-link" data-msub="sobre" aria-expanded="false" aria-controls="msub-sobre">A Pousada ▾</button>
+  <div class="m-sub" id="msub-sobre">
+    <a href="#sobre" data-close>Nossa essência</a>
+    <a href="#sobre-sustentabilidade" data-close>Sustentabilidade</a>
+    <a href="#contato-infos" data-close>Informações úteis</a>
+  </div>
+  <button type="button" class="m-link" data-msub="chales" aria-expanded="false" aria-controls="msub-chales">Chalés ▾</button>
+  <div class="m-sub" id="msub-chales"></div>
+  <a href="#passeios" class="m-link" data-close>Passeios</a>
+  <a href="#gastronomia" class="m-link" data-close>Gastronomia</a>
+  <a href="#galeria" class="m-link" data-close>Galeria</a>
+  <a href="#contato" class="m-link" data-close>Contato</a>
+  <a class="btn btn--whats" data-whats data-close style="margin:1.4rem 1.8rem;justify-content:center"><svg><use href="#i-whats"/></svg>Reservar pelo WhatsApp</a>
+</nav>
+
+<main id="main" tabindex="-1">
+
+<!-- ════════════════ HOME ════════════════ -->
+<section class="route is-active" id="route-home" data-route="home">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-media" data-parallax="0.25">
+      <img src="assets/images/areas/areas-01-1600.webp" alt="Cantos da Mata na Chapada dos Guimarães" fetchpriority="high">
+    </div>
+    <div class="leaf-fall" data-leaves="14"></div>
+    <div class="hero-content">
+      <p class="eyebrow hero-eyebrow no-line">Chapada dos Guimarães · Mato Grosso</p>
+      <h1>Cantos da Mata</h1>
+      <p class="hero-tagline">Um santuário entre o cerrado e a mata — onde o tempo flui diferente.</p>
+      <div class="hero-actions">
+        <a class="btn btn--whats" data-whats><svg><use href="#i-whats"/></svg>Reservar estadia</a>
+        <a class="btn btn--outline" href="#chales">Conhecer os chalés</a>
+      </div>
+    </div>
+    <a href="#sobre" class="hero-scroll"><span>Descubra</span><span class="line"></span></a>
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Cachoeiras</span><span>Cerrado</span><span>Cavernas</span><span>Birdwatching</span><span>Desaceleração</span><span>Natureza pura</span>
+      <span>Cachoeiras</span><span>Cerrado</span><span>Cavernas</span><span>Birdwatching</span><span>Desaceleração</span><span>Natureza pura</span>
+    </div>
+  </div>
+
+  <!-- INTRO SPLIT -->
+  <div class="intro">
+    <div class="intro-media" data-reveal="left">
+      <img src="assets/images/casa-de-pedra/casa-de-pedra-01-1600.webp" alt="Casa de Pedra — Cantos da Mata">
+      <span class="cap">Casa de Pedra · Cantos da Mata</span>
+    </div>
+    <div class="intro-text">
+      <p class="eyebrow" data-reveal>Nossa essência</p>
+      <h2 data-reveal data-reveal-delay="1">Entre o céu e a floresta</h2>
+      <p data-reveal data-reveal-delay="2">Cantos da Mata nasceu do desejo de criar um espaço onde a natureza não é cenário — ela é a protagonista. Cada chalé foi pensado para minimizar o impacto e maximizar a experiência.</p>
+      <p data-reveal data-reveal-delay="3">Aninhada no Vale do Jamacá, em Chapada dos Guimarães, somos um ponto de encontro entre o viajante curioso e a sabedoria da terra. Aqui, entre cachoeiras e paredões de arenito, você desacelera de verdade.</p>
+      <a href="#sobre" class="arrow-link on-dark" data-reveal data-reveal-delay="4">Conheça nossa história</a>
+    </div>
+  </div>
+
+  <!-- INTERLUDE -->
+  <section class="section section--cream interlude">
+    <div class="container">
+      <p class="eyebrow center" data-reveal>Bem-vindo</p>
+      <svg class="mark" style="color:var(--green-moss)" data-reveal><use href="#i-leaf"/></svg>
+      <p data-reveal data-reveal-delay="1">"Mais que uma pousada. Um convite para desacelerar, respirar fundo e se reconectar com o que a natureza tem de mais puro."</p>
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section class="section section--cream" style="padding-top:0">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow center" data-reveal>Por que Cantos da Mata</p>
+        <h2 data-reveal data-reveal-delay="1">Três razões para vir</h2>
+      </div>
+      <div class="highlights">
+        <div class="hl" data-reveal>
+          <div class="hl-bg" style="background-image:url('assets/images/areas/areas-07-1600.webp')"></div>
+          <div class="hl-body"><span class="hl-num">01</span><h3>Natureza pura</h3><p>Cachoeiras cristalinas, trilhas entre cerrado e mata, fauna exuberante a poucos passos do seu chalé.</p></div>
+        </div>
+        <div class="hl" data-reveal data-reveal-delay="1">
+          <div class="hl-bg" style="background-image:url('assets/images/caracol/caracol-01-1600.webp')"></div>
+          <div class="hl-body"><span class="hl-num">02</span><h3>Desaceleração</h3><p>Sem pressa. Um espaço projetado para reconectar você com o ritmo da natureza — e com você mesmo.</p></div>
+        </div>
+        <div class="hl" data-reveal data-reveal-delay="2">
+          <div class="hl-bg" style="background-image:url('assets/images/casa-de-pedra/casa-de-pedra-04-1600.webp')"></div>
+          <div class="hl-body"><span class="hl-num">03</span><h3>Acolhimento</h3><p>Café da manhã incluso, recepção 24h e um time que fala português, inglês e alemão. Você em casa.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCOMMODATIONS PREVIEW (JS) -->
+  <section class="section section--cream" style="padding-top:0">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow center" data-reveal>Onde você vai descansar</p>
+        <h2 data-reveal data-reveal-delay="1">Nossos Chalés</h2>
+      </div>
+    </div>
+    <div id="homeAccom"></div>
+    <div class="container" style="text-align:center;margin-top:3rem">
+      <a href="#chales" class="btn btn--primary" data-reveal>Ver todos os chalés</a>
+    </div>
+  </section>
+
+  <!-- VINE + MONKEY scene -->
+  <div class="vine-scene"><div class="monkey-swing" id="monkeySwing" style="color:var(--brown-dark)"><svg viewBox="0 0 100 150" width="92" height="138"><use href="#i-monkey"/></svg></div></div>
+
+  <!-- EXPERIENCES PREVIEW (JS) -->
+  <section class="section section--forest" style="position:relative">
+    <div class="canopy canopy--top" style="color:var(--cream)"><svg><use href="#i-canopy"/></svg></div>
+    <div class="container" style="position:relative;z-index:3">
+      <div class="section-head">
+        <p class="eyebrow center" style="color:var(--green-leaf)" data-reveal>O que nos espera lá fora</p>
+        <h2 data-reveal data-reveal-delay="1">Passeios & experiências</h2>
+        <p data-reveal data-reveal-delay="2">Cachoeiras, cavernas de arenito, mirantes de 360º e aventura — guiados por quem conhece cada trilha da Chapada.</p>
+      </div>
+      <div class="grid-3" id="homeExp"></div>
+      <div style="text-align:center;margin-top:3rem"><a href="#passeios" class="btn btn--leaf" data-reveal>Ver todos os passeios</a></div>
+    </div>
+  </section>
+
+  <!-- SUSTAINABILITY -->
+  <section class="section section--beige">
+    <div class="container sustain">
+      <div class="sustain-text">
+        <p class="eyebrow" data-reveal>Nosso compromisso</p>
+        <h2 data-reveal data-reveal-delay="1">Luxo que respeita a terra</h2>
+        <p data-reveal data-reveal-delay="2">Cada decisão passa por um filtro: isso respeita o lugar onde estamos? Construções que se integram à paisagem, materiais locais e práticas que devolvem à natureza mais do que tomam.</p>
+        <p data-reveal data-reveal-delay="3">Não viemos aqui para conquistar a natureza — viemos para celebrá-la.</p>
+        <a href="#sobre" class="arrow-link" data-reveal data-reveal-delay="4">Saiba mais</a>
+      </div>
+      <div class="stats" data-reveal="right">
+        <div class="stat"><div class="stat-num" data-count="100" data-suffix="%">0%</div><div class="stat-label">Imersão na natureza</div></div>
+        <div class="stat"><div class="stat-num" data-count="9" data-suffix="">0</div><div class="stat-label">Cachoeiras no circuito</div></div>
+        <div class="stat"><div class="stat-num" data-count="3" data-suffix="">0</div><div class="stat-label">Idiomas atendidos</div></div>
+        <div class="stat"><div class="stat-num" data-count="24" data-suffix="h">0</div><div class="stat-label">Recepção aberta</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS (JS) -->
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow center" style="color:var(--green-leaf)" data-reveal>O que dizem nossos hóspedes</p>
+        <h2 data-reveal data-reveal-delay="1">Experiências vividas</h2>
+      </div>
+      <div class="testi-track" id="homeTesti"></div>
+    </div>
+  </section>
+
+  <!-- GALLERY STRIP (JS) -->
+  <section class="section section--dark" style="padding-top:0">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow center" style="color:var(--green-leaf)" data-reveal>Uma janela para a mata</p>
+        <h2 data-reveal data-reveal-delay="1">O lodge em imagens</h2>
+      </div>
+    </div>
+    <div class="gallery-strip" id="homeGallery"></div>
+    <div class="container" style="text-align:center;margin-top:2.5rem"><a href="#galeria" class="btn btn--outline" data-reveal>Abrir a galeria completa</a></div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="section quote">
+    <div class="container">
+      <blockquote data-reveal>"Aqui você não é apenas um hóspede, mas um explorador. Cada amanhecer no mirante, cada cascata descoberta, cada noite ao redor da fogueira."</blockquote>
+      <cite data-reveal data-reveal-delay="1">— Cantos da Mata</cite>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="section section--forest" style="text-align:center;position:relative">
+    <div class="leaf-fall" data-leaves="10"></div>
+    <div class="container" style="position:relative;z-index:3">
+      <p class="eyebrow center" style="color:var(--green-leaf)" data-reveal>Pronto para vir?</p>
+      <h2 style="font-size:clamp(2rem,5vw,3.6rem);font-style:italic;margin:1rem 0" data-reveal data-reveal-delay="1">Sua estadia começa aqui</h2>
+      <p style="color:rgba(245,241,232,0.7);margin-bottom:2.4rem" data-reveal data-reveal-delay="2">Consulte disponibilidade e planeje sua experiência na Chapada dos Guimarães.</p>
+      <div class="hero-actions" data-reveal data-reveal-delay="3">
+        <a class="btn btn--whats" data-whats><svg><use href="#i-whats"/></svg>Reservar pelo WhatsApp</a>
+        <a class="btn btn--outline" href="#chales">Ver acomodações</a>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ════════════════ SOBRE ════════════════ -->
+<section class="route" id="route-sobre" data-route="sobre">
+  <div class="page-hero">
+    <div class="page-hero-media" data-parallax="0.2"><img src="assets/images/areas/areas-03-1600.webp" alt="Cantos da Mata"></div>
+    <div class="container inner">
+      <div class="breadcrumb"><a href="#home">Início</a><span>/</span><span>A Pousada</span></div>
+      <p class="eyebrow no-line" style="color:var(--green-leaf);margin-top:1rem">Nosso propósito</p>
+      <h1>A Pousada</h1>
+      <p class="sub">Um refúgio na natureza para restaurar corpo, mente e espírito.</p>
+    </div>
+  </div>
+
+  <section class="section section--cream">
+    <div class="container split">
+      <div class="split-text" data-reveal="left">
+        <p class="eyebrow">Manifesto</p>
+        <h3 style="margin-top:1rem">Não viemos conquistar a natureza</h3>
+        <p>Cantos da Mata existe para oferecer uma experiência autêntica e transformadora na Chapada dos Guimarães. Acreditamos que a verdadeira hospitalidade está em harmonizar conforto com responsabilidade ambiental.</p>
+        <p>Cada detalhe foi pensado para minimizar impacto e maximizar conexão. Aninhados no Vale do Jamacá, recebemos viajantes do Brasil e do mundo — em português, inglês e alemão — com a mesma vontade de mostrar a beleza do cerrado.</p>
+      </div>
+      <div class="split-media" data-reveal="right"><img src="assets/images/areas/areas-09-1600.webp" alt="Áreas externas"></div>
+    </div>
+  </section>
+
+  <section class="section section--forest" id="sobre-sustentabilidade" style="position:relative">
+    <div class="canopy canopy--top" style="color:var(--cream)"><svg><use href="#i-canopy"/></svg></div>
+    <div class="container" style="position:relative;z-index:3">
+      <div class="section-head"><p class="eyebrow center" style="color:var(--green-leaf)" data-reveal>Sustentabilidade</p><h2 data-reveal data-reveal-delay="1">Luxo responsável</h2></div>
+      <div class="grid-3">
+        <div class="card" data-reveal><div class="card-body"><h3>Integração à paisagem</h3><p>Construções pensadas para se integrar ao cerrado, respeitando a topografia e a vegetação nativa do Vale do Jamacá.</p></div></div>
+        <div class="card" data-reveal data-reveal-delay="1"><div class="card-body"><h3>Consumo consciente</h3><p>Práticas de baixo impacto no dia a dia da pousada — do descarte às rotinas de limpeza e ao uso da água.</p></div></div>
+        <div class="card" data-reveal data-reveal-delay="2"><div class="card-body"><h3>Economia local</h3><p>Parcerias com guias e operadores da Chapada, valorizando quem conhece e cuida do território.</p></div></div>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ════════════════ CHALÉS (overview) ════════════════ -->
+<section class="route" id="route-chales" data-route="chales">
+  <div class="page-hero">
+    <div class="page-hero-media" data-parallax="0.2"><img src="assets/images/caracol/caracol-02-1600.webp" alt="Chalés Cantos da Mata"></div>
+    <div class="container inner">
+      <div class="breadcrumb"><a href="#home">Início</a><span>/</span><span>Chalés</span></div>
+      <p class="eyebrow no-line" style="color:var(--green-leaf);margin-top:1rem">Onde você vai descansar</p>
+      <h1>Nossos Chalés</h1>
+      <p class="sub">Cada refúgio é uma obra à parte — todos imersos na mata, todos com café da manhã incluso.</p>
+    </div>
+  </div>
+  <section class="section section--cream">
+    <div class="container"><div class="lodge-grid" id="lodgeGrid"></div></div>
+  </section>
+</section>
+
+<!-- ════════════════ CHALÉ (detail, JS-rendered) ════════════════ -->
+<section class="route" id="route-chale" data-route="chale"></section>
+
+<!-- ════════════════ PASSEIOS ════════════════ -->
+<section class="route" id="route-passeios" data-route="passeios">
+  <div class="page-hero">
+    <div class="page-hero-media" data-parallax="0.2"><img src="assets/images/areas/areas-11-1600.webp" alt="Passeios na Chapada dos Guimarães"></div>
+    <div class="container inner">
+      <div class="breadcrumb"><a href="#home">Início</a><span>/</span><span>Passeios</span></div>
+      <p class="eyebrow no-line" style="color:var(--green-leaf);margin-top:1rem">A Chapada te espera</p>
+      <h1>Passeios</h1>
+      <p class="sub">Cachoeiras, cavernas de arenito, mirantes e aventura. Roteiros reais da região, organizados pela recepção.</p>
+    </div>
+  </div>
+  <section class="section section--cream" style="padding-bottom:0">
+    <div class="container"><p class="lead" style="max-width:780px;color:var(--brown-dark)" data-reveal>A Chapada dos Guimarães guarda alguns dos cenários mais espetaculares do Brasil. Montamos roteiros para todos os ritmos — do banho tranquilo numa lagoa à descida de duck nas corredeiras.</p></div>
+  </section>
+  <div id="tourList"></div>
+  <section class="section section--beige" style="text-align:center">
+    <div class="container">
+      <p class="eyebrow center" data-reveal>Monte seu roteiro</p>
+      <h2 style="font-style:italic;margin:1rem 0" data-reveal data-reveal-delay="1">Fale com a recepção</h2>
+      <p style="color:var(--brown-dark);max-width:560px;margin:0 auto 2rem" data-reveal data-reveal-delay="2">Combinamos os passeios de acordo com sua estadia, ritmo e interesses. Biking e outros passeios sob consulta.</p>
+      <a class="btn btn--whats" data-whats data-reveal data-reveal-delay="3"><svg><use href="#i-whats"/></svg>Planejar meus passeios</a>
+    </div>
+  </section>
+</section>
+
+<!-- ════════════════ GASTRONOMIA ════════════════ -->
+<section class="route" id="route-gastronomia" data-route="gastronomia">
+  <div class="page-hero">
+    <div class="page-hero-media" data-parallax="0.2"><img src="assets/images/areas/areas-02-1600.webp" alt="Gastronomia Cantos da Mata"></div>
+    <div class="container inner">
+      <div class="breadcrumb"><a href="#home">Início</a><span>/</span><span>Gastronomia</span></div>
+      <p class="eyebrow no-line" style="color:var(--green-leaf);margin-top:1rem">Sabores da Chapada</p>
+      <h1>Gastronomia</h1>
+      <p class="sub">A manhã começa devagar, com um café caprichado. À noite, jantar sob encomenda e churrasco sob as estrelas.</p>
+    </div>
+  </div>
+  <section class="section section--cream">
+    <div class="container split">
+      <div class="split-media" data-reveal="left"><img src="assets/images/areas/areas-04-1600.webp" alt="Café da manhã"></div>
+      <div class="split-text" data-reveal="right">
+        <p class="eyebrow"><svg style="width:16px;height:16px;color:var(--green-moss)"><use href="#i-coffee"/></svg> Café da manhã</p>
+        <h3 style="margin-top:1rem">A manhã sem pressa</h3>
+        <p>Incluso na diária e servido das 7h às 9h, nosso café da manhã reúne o que a região tem de melhor para começar bem o dia — antes de cair na trilha ou simplesmente contemplar a mata.</p>
+      </div>
+    </div>
+    <div class="container split flip" style="margin-top:4rem">
+      <div class="split-media" data-reveal="right"><img src="assets/images/areas/areas-06-1600.webp" alt="Jantar e churrasco"></div>
+      <div class="split-text" data-reveal="left">
+        <p class="eyebrow">Jantar & churrasco</p>
+        <h3 style="margin-top:1rem">Noites à luz do cerrado</h3>
+        <p>O jantar é servido sob encomenda — basta avisar com um dia de antecedência. Às 19h, por R$ 60 por pessoa, com a opção de noites de churrasco sob consulta.</p>
+        <a class="btn btn--leaf" data-whats style="margin-top:0.6rem"><svg><use href="#i-whats"/></svg>Reservar jantar</a>
+      </div>
+    </div>
+  </section>
+</section>
+
+<!-- ════════════════ GALERIA ════════════════ -->
+<section class="route" id="route-galeria" data-route="galeria">
+  <div class="page-hero" style="min-height:55vh">
+    <div class="page-hero-media" data-parallax="0.2"><img src="assets/images/casinha/casinha-01-1600.webp" alt="Galeria Cantos da Mata"></div>
+    <div class="container inner">
+      <div class="breadcrumb"><a href="#home">Início</a><span>/</span><span>Galeria</span></div>
+      <p class="eyebrow no-line" style="color:var(--green-leaf);margin-top:1rem">O lodge em imagens</p>
+      <h1>Galeria</h1>
+    </div>
+  </div>
+  <section class="section section--dark"><div class="container"><div id="galleryFilters" style="display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:center;margin-bottom:2rem"></div><div class="gallery-grid" id="fullGallery"></div></div></section>
+</section>
+
+<!-- ════════════════ CONTATO ════════════════ -->
+<section class="route" id="route-contato" data-route="contato">
+  <div class="page-hero" style="min-height:55vh">
+    <div class="page-hero-media" data-parallax="0.2"><img src="assets/images/areas/areas-12-1600.webp" alt="Contato Cantos da Mata"></div>
+    <div class="container inner">
+      <div class="breadcrumb"><a href="#home">Início</a><span>/</span><span>Contato</span></div>
+      <p class="eyebrow no-line" style="color:var(--green-leaf);margin-top:1rem">Estamos prontos para receber você</p>
+      <h1>Contato & Reservas</h1>
+    </div>
+  </div>
+  <section class="section section--cream">
+    <div class="container contact-grid">
+      <div data-reveal="left">
+        <div class="contact-card">
+          <h3>Fale com a gente</h3>
+          <div class="contact-item"><svg><use href="#i-whats"/></svg><div><span class="k">WhatsApp · Reservas</span><a data-whats id="contactWhats"></a></div></div>
+          <div class="contact-item"><svg><use href="#i-mail"/></svg><div><span class="k">Email</span><a id="contactMail"></a></div></div>
+          <div class="contact-item"><svg><use href="#i-pin"/></svg><div><span class="k">Endereço</span><span id="contactAddr"></span></div></div>
+          <div class="contact-item"><svg><use href="#i-clock"/></svg><div><span class="k">Recepção</span><span>Aberta 24 horas · Check-in 13h · Check-out 11h</span></div></div>
+          <a class="btn btn--whats" data-whats style="width:100%;justify-content:center;margin-top:1.6rem"><svg><use href="#i-whats"/></svg>Reservar agora</a>
+        </div>
+      </div>
+      <div data-reveal="right">
+        <p class="eyebrow">Prefere escrever?</p>
+        <h3 style="font-style:italic;margin:1rem 0 1.6rem">Envie uma mensagem</h3>
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="field"><label for="f-nome">Nome</label><input id="f-nome" type="text" name="nome" required></div>
+            <div class="field"><label for="f-email">Email</label><input id="f-email" type="email" name="email" required></div>
+          </div>
+          <div class="field"><label for="f-msg">Mensagem</label><textarea id="f-msg" name="msg" placeholder="Datas, número de hóspedes, dúvidas..." required></textarea></div>
+          <button type="submit" class="btn btn--primary">Enviar pelo WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--beige" id="contato-infos" style="padding-top:0">
+    <div class="container">
+      <div class="section-head"><p class="eyebrow center" data-reveal>Antes de chegar</p><h2 data-reveal data-reveal-delay="1">Informações úteis</h2></div>
+      <ul class="info-list" id="infoList" data-reveal></ul>
+    </div>
+  </section>
+
+  <iframe class="map-embed" id="mapEmbed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização Cantos da Mata"></iframe>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER ═══════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="canopy canopy--top" style="color:var(--cream);opacity:0.04"><svg><use href="#i-canopy"/></svg></div>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="brand"><svg style="width:30px;height:30px;color:var(--green-leaf)"><use href="#i-leaf"/></svg><span class="brand-name">Cantos da Mata</span></a>
+        <p>Mais que uma pousada: um convite para desacelerar, respirar e renascer na natureza de Chapada dos Guimarães.</p>
+        <div class="social">
+          <a href="#" id="footIg" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
+          <a data-whats aria-label="WhatsApp"><svg><use href="#i-whats"/></svg></a>
+          <a id="footMail" aria-label="Email"><svg><use href="#i-mail"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col"><h4>Navegar</h4><ul>
+        <li><a href="#sobre">A Pousada</a></li><li><a href="#chales">Chalés</a></li><li><a href="#passeios">Passeios</a></li><li><a href="#gastronomia">Gastronomia</a></li><li><a href="#galeria">Galeria</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Chalés</h4><ul id="footLodges"></ul></div>
+      <div class="footer-col"><h4>Contato</h4><ul>
+        <li><a data-whats id="footWhats"></a></li>
+        <li><a id="footMail2"></a></li>
+        <li><p id="footAddr"></p></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Cantos da Mata · Chapada dos Guimarães, MT</span>
+      <span class="paw-trail" aria-hidden="true"><svg><use href="#i-paw"/></svg><svg><use href="#i-paw"/></svg><svg><use href="#i-paw"/></svg></span>
+      <span>Feito com 🌿 na Chapada</span>
+    </div>
+  </div>
+</footer>
+
+<a class="fab-whats" data-whats aria-label="Reservar pelo WhatsApp"><svg><use href="#i-whats"/></svg></a>
+
+<!-- lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeria de imagens">
+  <button class="lb-btn lb-close" id="lbClose" aria-label="Fechar">×</button>
+  <button class="lb-btn lb-prev" id="lbPrev" aria-label="Anterior">‹</button>
+  <img id="lbImg" alt="">
+  <button class="lb-btn lb-next" id="lbNext" aria-label="Próxima">›</button>
+  <span class="lb-count" id="lbCount"></span>
+</div>
+
+<!-- ═══ SCRIPTS (vendored, file://-safe) ═════════════════════════════ -->
+<script src="assets/js/vendor/gsap.min.js"></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/js/vendor/lenis.min.js"></script>
+<script src="assets/js/gallery-data.js"></script>
+<script src="assets/js/content.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/animations.js"></script>
 </body>
 </html>
