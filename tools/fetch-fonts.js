@@ -1,7 +1,7 @@
 // Baixa as fontes (woff2, subset latim) do Google Fonts e gera assets/css/fonts.css local.
 const fs = require('fs');
 const path = require('path');
-const ROOT = 'C:/Dev/Projetos/Cantos da Mata';
+const ROOT = 'C:/Dev/projetos/cantos-da-mata';
 const FONTS_DIR = path.join(ROOT, 'assets', 'fonts');
 const CSS_OUT = path.join(ROOT, 'assets', 'css', 'fonts.css');
 const URL = 'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap';
